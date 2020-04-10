@@ -7,23 +7,50 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenRA.ModMaker", "OpenRA.M
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenRA.ModMaker.UI", "OpenRA.ModMaker.UI\OpenRA.ModMaker.UI.csproj", "{70293E41-64EF-4585-A86F-A85A2DB257C1}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Engine", "Engine", "{5C0516C2-61C7-4DE6-A262-34ED427D7623}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenRA.Game", "OpenRA\OpenRA.Game\OpenRA.Game.csproj", "{7B2FE6A8-5429-498F-8441-A27978DEB406}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenRA.Mods.Common", "OpenRA\OpenRA.Mods.Common\OpenRA.Mods.Common.csproj", "{334F2CB9-C438-49EE-AEBC-CF67B8D0C26C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
+		Release-x86|Any CPU = Release-x86|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{537D0F9A-7BB8-44F4-B586-AAB3CAB22154}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{537D0F9A-7BB8-44F4-B586-AAB3CAB22154}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{537D0F9A-7BB8-44F4-B586-AAB3CAB22154}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{537D0F9A-7BB8-44F4-B586-AAB3CAB22154}.Release|Any CPU.Build.0 = Release|Any CPU
+		{537D0F9A-7BB8-44F4-B586-AAB3CAB22154}.Release-x86|Any CPU.ActiveCfg = Release|Any CPU
+		{537D0F9A-7BB8-44F4-B586-AAB3CAB22154}.Release-x86|Any CPU.Build.0 = Release|Any CPU
 		{70293E41-64EF-4585-A86F-A85A2DB257C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{70293E41-64EF-4585-A86F-A85A2DB257C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70293E41-64EF-4585-A86F-A85A2DB257C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70293E41-64EF-4585-A86F-A85A2DB257C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70293E41-64EF-4585-A86F-A85A2DB257C1}.Release-x86|Any CPU.ActiveCfg = Release|Any CPU
+		{70293E41-64EF-4585-A86F-A85A2DB257C1}.Release-x86|Any CPU.Build.0 = Release|Any CPU
+		{7B2FE6A8-5429-498F-8441-A27978DEB406}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B2FE6A8-5429-498F-8441-A27978DEB406}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B2FE6A8-5429-498F-8441-A27978DEB406}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B2FE6A8-5429-498F-8441-A27978DEB406}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B2FE6A8-5429-498F-8441-A27978DEB406}.Release-x86|Any CPU.ActiveCfg = Release-x86|Any CPU
+		{7B2FE6A8-5429-498F-8441-A27978DEB406}.Release-x86|Any CPU.Build.0 = Release-x86|Any CPU
+		{334F2CB9-C438-49EE-AEBC-CF67B8D0C26C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{334F2CB9-C438-49EE-AEBC-CF67B8D0C26C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{334F2CB9-C438-49EE-AEBC-CF67B8D0C26C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{334F2CB9-C438-49EE-AEBC-CF67B8D0C26C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{334F2CB9-C438-49EE-AEBC-CF67B8D0C26C}.Release-x86|Any CPU.ActiveCfg = Release|Any CPU
+		{334F2CB9-C438-49EE-AEBC-CF67B8D0C26C}.Release-x86|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7B2FE6A8-5429-498F-8441-A27978DEB406} = {5C0516C2-61C7-4DE6-A262-34ED427D7623}
+		{334F2CB9-C438-49EE-AEBC-CF67B8D0C26C} = {5C0516C2-61C7-4DE6-A262-34ED427D7623}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BE1FD231-51EB-4CF1-A438-1C4BA4A7418B}
