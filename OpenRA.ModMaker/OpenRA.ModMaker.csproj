@@ -41,15 +41,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\ModDirectory.cs" />
-    <Compile Include="Data\IModFileStore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Yaml\YamlFile.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OpenRA\OpenRA.Game\OpenRA.Game.csproj">
       <Project>{7b2fe6a8-5429-498f-8441-a27978deb406}</Project>
       <Name>OpenRA.Game</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Model\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
