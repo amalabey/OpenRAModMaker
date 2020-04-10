@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using OpenRA.ModMaker.Yaml;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace OpenRA.ModMaker.Model
 {
 	public class Manifest : Node
 	{
-		private List<MiniYamlNode> yaml;
+		private List<MiniYamlNode> yamlNodes;
 
 		public override NodeType NodeType
 		{
@@ -18,8 +17,9 @@ namespace OpenRA.ModMaker.Model
 
 		public Manifest(string path)
 		{
-			this.yaml = MiniYaml.FromFile(path, false);
-
+			this.yamlNodes = MiniYaml.FromFile(path, false);
+			var packagesNode = new Packages(this.yamlNodes.FirstOrDefault(x => x.Key == "Packages")?.Value);
+			this.Children.Add(packagesNode);
 		}
 	}
 }
