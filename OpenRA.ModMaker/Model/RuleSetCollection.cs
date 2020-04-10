@@ -2,11 +2,18 @@
 {
 	public class RuleSetCollection : Node
 	{
-		public override NodeType NodeType
+		private MiniYaml yaml;
+
+		public RuleSetCollection(MiniYaml yaml) : base(NodeType.RuleSetCollection)
 		{
-			get
+			this.yaml = yaml;
+			this.Name = "Rules";
+			if(yaml != null)
 			{
-				return NodeType.RuleSetCollection;
+				foreach (var node in yaml.Nodes)
+				{
+					this.Children.Add(new RuleSet(node));
+				}
 			}
 		}
 	}

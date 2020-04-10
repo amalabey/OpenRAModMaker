@@ -60,10 +60,6 @@
       <Project>{537D0F9A-7BB8-44F4-B586-AAB3CAB22154}</Project>
       <Name>OpenRA.ModMaker</Name>
     </ProjectReference>
-    <ProjectReference Include="..\OpenRA\OpenRA.Game\OpenRA.Game.csproj">
-      <Project>{7b2fe6a8-5429-498f-8441-a27978deb406}</Project>
-      <Name>OpenRA.Game</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

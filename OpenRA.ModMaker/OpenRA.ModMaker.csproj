@@ -42,7 +42,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\MiniYamlExtensions.cs" />
-    <Compile Include="IEditable.cs" />
     <Compile Include="Model\Actor.cs" />
     <Compile Include="Model\Manifest.cs" />
     <Compile Include="Model\Node.cs" />

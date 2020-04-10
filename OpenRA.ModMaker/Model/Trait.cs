@@ -1,12 +1,18 @@
-﻿namespace OpenRA.ModMaker.Model
+﻿using OpenRA.ModMaker.Extensions;
+
+namespace OpenRA.ModMaker.Model
 {
 	public class Trait : Node
 	{
-		public override NodeType NodeType
+		private MiniYamlNode yamlNode;
+
+		public Trait(MiniYamlNode yamlNode) : base (NodeType.Trait)
 		{
-			get
+			this.yamlNode = yamlNode;
+			if(this.yamlNode != null)
 			{
-				return NodeType.Trait;
+				this.Name = yamlNode.Key;
+				Attributes = yamlNode.Value.ToAttributeDictionary<string, string>(s => s, n => n.Value);
 			}
 		}
 	}

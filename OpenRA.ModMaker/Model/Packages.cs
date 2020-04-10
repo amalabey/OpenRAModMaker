@@ -7,22 +7,13 @@ namespace OpenRA.ModMaker.Model
 	{
 		private MiniYaml yaml;
 
-		public Packages(MiniYaml yaml)
+		public Packages(MiniYaml yaml):base(NodeType.Packages)
 		{
 			Name = "Packages";
 			this.yaml = yaml;
 			if (yaml != null)
 			{
-				var attributes = yaml.ToAttributeDictionary<string, string>(s => s, n => n.Value);
-				Attributes = attributes;
-			}
-		}
-
-		public override NodeType NodeType
-		{
-			get
-			{
-				return NodeType.Packages;
+				Attributes = yaml.ToAttributeDictionary<string, string>(s => s, n => n.Value);
 			}
 		}
 	}

@@ -7,9 +7,18 @@ namespace OpenRA.ModMaker.Model
 {
 	public class Node : INotifyPropertyChanged
 	{
+		private NodeType nodeType = NodeType.Generic;
 		public event PropertyChangedEventHandler PropertyChanged = (sender, e) => { };
 
 		private string name;
+
+		public Node(NodeType nodeType)
+		{
+			this.nodeType = nodeType;
+			this.Children = new ObservableCollection<Node>();
+			this.Attributes = new AttributeDictionary<string, string>();
+		}
+
 		public string Name { 
 			get
 			{
@@ -26,7 +35,7 @@ namespace OpenRA.ModMaker.Model
 		{
 			get
 			{
-				return NodeType.Generic;
+				return nodeType;
 			}
 		}
 

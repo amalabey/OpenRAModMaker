@@ -2,11 +2,18 @@
 {
 	public class Actor : Node
 	{
-		public override NodeType NodeType
+		private MiniYamlNode yaml;
+
+		public Actor(MiniYamlNode yaml) : base(NodeType.Actor)
 		{
-			get
+			this.yaml = yaml;
+			if (yaml != null)
 			{
-				return NodeType.Actor;
+				this.Name = yaml.Key;
+				foreach (var node in yaml.Value.Nodes)
+				{
+					this.Children.Add(new Actor(node));
+				}
 			}
 		}
 	}

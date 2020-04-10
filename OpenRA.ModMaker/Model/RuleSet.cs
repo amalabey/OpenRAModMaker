@@ -1,34 +1,27 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace OpenRA.ModMaker.Model
 {
-	public class RuleSet : Node, IEditable
+	public class RuleSet : Node
 	{
-		public RuleSet(string path)
-		{
-			Path = path;
-		}
+		private MiniYamlNode parentYamlNode;
+		private List<MiniYamlNode> yamlNodes;
+		private string yamlFilePath;
 
-		public override NodeType NodeType
+		public RuleSet(MiniYamlNode yamlNode) : base(NodeType.RuleSet)
 		{
-			get
+			this.parentYamlNode = yamlNode;
+			if(this.yamlNodes != null)
 			{
-				return NodeType.RuleSet;
+				this.yamlFilePath = yamlNode.Key;
+				this.Name = yamlNode.Key;
+				this.yamlNodes = MiniYaml.FromFile(this.yamlFilePath, false);
+				foreach (var node in this.yamlNodes)
+				{
+					this.Children.Add(new Actor(node));
+				}
 			}
-		}
-
-		public bool IsDirty => throw new NotImplementedException();
-
-		public string Path { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
-		public void Load()
-		{
-			throw new NotImplementedException();
-		}
-
-		public void Save()
-		{
-			throw new NotImplementedException();
 		}
 	}
 }
