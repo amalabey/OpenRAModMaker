@@ -5,14 +5,18 @@ namespace OpenRA.ModMaker.Yaml
 {
 	public class YamlFile
 	{
-		public List<MiniYamlNode> Read(string filePath)
+		private readonly string filePath;
+		public List<MiniYamlNode> YamlNodes { get; set; }
+
+		public YamlFile(string filePath)
 		{
-			return MiniYaml.FromFile(filePath, false);
+			this.filePath = filePath;
+			this.YamlNodes = MiniYaml.FromFile(this.filePath, false);
 		}
 
-		public static void Write(List<MiniYamlNode> nodes, string filePath)
+		public void Write()
 		{
-			nodes.WriteToFile(filePath);
+			this.YamlNodes.WriteToFile(filePath);
 		}
 	}
 }
