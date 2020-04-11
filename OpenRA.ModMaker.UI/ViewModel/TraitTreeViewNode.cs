@@ -8,6 +8,6 @@ namespace OpenRA.ModMaker.UI.ViewModel
 		{
 		}
 
-		public override string Image => "images/trait.jpg";
+		public override string Image => "trait.png";
 	}
 }

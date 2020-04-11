@@ -8,6 +8,6 @@ namespace OpenRA.ModMaker.UI.ViewModel
 		{
 		}
 
-		public override string Image => "images/packages.jpg";
+		public override string Image => "packages.png";
 	}
 }

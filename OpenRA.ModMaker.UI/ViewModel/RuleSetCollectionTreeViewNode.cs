@@ -15,6 +15,6 @@ namespace OpenRA.ModMaker.UI.ViewModel
 			}
 		}
 
-		public override string Image => "images/rulesetcollection.jpg";
+		public override string Image => "rulesetcollection.png";
 	}
 }

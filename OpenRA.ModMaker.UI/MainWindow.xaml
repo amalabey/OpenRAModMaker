@@ -21,9 +21,9 @@
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding Children}">
                     <StackPanel Orientation="Horizontal">
-                        <!--<Image Width="20" Margin="3" 
-                                    Source="{Binding ImageName,
-                                        Converter={x:Static local:HeaderToImageConverter.Instance}}" />-->
+                        <Image Width="20" Margin="3" 
+                                    Source="{Binding Image,
+                                        Converter={x:Static local:ValueConverters.NodeToImageConverter.Instance}}" />
                         <TextBlock VerticalAlignment="Center" Text="{Binding Name}" />
                     </StackPanel>
                 </HierarchicalDataTemplate>
