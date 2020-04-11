@@ -117,5 +117,13 @@ namespace OpenRA.ModMaker.Primitives
 		{
 			get { return innerDict.Keys; }
 		}
+
+		public void KeepInSyncWith(IDictionary<TKey, TValue> target)
+		{
+			this.OnAdd += (k, v) => target.Add(k, v);
+			this.OnRemove += (k) => target.Remove(k);
+			this.OnSet += (k, v) => target[k] = v;
+			this.OnClear += () => target.Clear();
+		}
 	}
 }
