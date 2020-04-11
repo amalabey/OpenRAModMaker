@@ -7,7 +7,7 @@ namespace OpenRA.ModMaker.Model
 		private readonly MiniYaml yaml;
 		private readonly IPathResolver pathResolver;
 
-		public RuleSetCollection(MiniYaml yaml, IPathResolver pathResolver) : base(NodeType.RuleSetCollection)
+		public RuleSetCollection(MiniYaml yaml, IPathResolver pathResolver) : base()
 		{
 			this.yaml = yaml;
 			this.pathResolver = pathResolver;

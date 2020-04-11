@@ -10,7 +10,7 @@ namespace OpenRA.ModMaker.Model
 		private List<MiniYamlNode> yamlNodes;
 		private readonly string yamlFilePath;
 		
-		public Manifest(Mod mod) : base(NodeType.Manifest)
+		public Manifest(Mod mod) : base()
 		{
 			this.yamlFilePath = Path.Combine(mod.ModsDirectoryPath, mod.ModId, "mod.yaml");
 			this.yamlNodes = MiniYaml.FromFile(this.yamlFilePath, false);

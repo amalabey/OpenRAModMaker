@@ -4,7 +4,7 @@
 	{
 		private MiniYamlNode yaml;
 
-		public Actor(MiniYamlNode yaml) : base(NodeType.Actor)
+		public Actor(MiniYamlNode yaml) : base()
 		{
 			this.yaml = yaml;
 			if (yaml != null)

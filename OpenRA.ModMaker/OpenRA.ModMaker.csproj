@@ -49,7 +49,6 @@
     <Compile Include="Model\Node.cs" />
     <Compile Include="Model\Packages.cs" />
     <Compile Include="Model\RuleSet.cs" />
-    <Compile Include="Model\NodeType.cs" />
     <Compile Include="Model\RuleSetCollection.cs" />
     <Compile Include="Model\Trait.cs" />
     <Compile Include="Primitives\AttributeDictionary.cs" />

@@ -6,7 +6,7 @@ namespace OpenRA.ModMaker.Model
 	{
 		private MiniYamlNode yamlNode;
 
-		public Trait(MiniYamlNode yamlNode) : base (NodeType.Trait)
+		public Trait(MiniYamlNode yamlNode) : base ()
 		{
 			this.yamlNode = yamlNode;
 			if(this.yamlNode != null)

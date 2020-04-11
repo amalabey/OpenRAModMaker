@@ -11,7 +11,7 @@ namespace OpenRA.ModMaker.Model
 		private string yamlFilePath;
 		private IPathResolver pathResolver;
 
-		public RuleSet(MiniYamlNode yamlNode, IPathResolver pathResolver) : base(NodeType.RuleSet)
+		public RuleSet(MiniYamlNode yamlNode, IPathResolver pathResolver) : base()
 		{
 			this.parentYamlNode = yamlNode;
 			this.pathResolver = pathResolver;
