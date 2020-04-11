@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using OpenRA.ModMaker.Primitives;
 using OpenRA.Primitives;
 
@@ -7,10 +6,11 @@ namespace OpenRA.ModMaker.Model
 {
 	public class Node : INotifyPropertyChanged
 	{
-		private NodeType nodeType = NodeType.Generic;
+		private readonly NodeType nodeType = NodeType.Generic;
 		public event PropertyChangedEventHandler PropertyChanged = (sender, e) => { };
-
 		private string name;
+
+		public bool IsExpanded { get; set; }
 
 		public Node(NodeType nodeType)
 		{

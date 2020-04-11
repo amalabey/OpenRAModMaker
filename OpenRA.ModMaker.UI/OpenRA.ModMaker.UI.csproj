@@ -94,5 +94,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OpenRA.ModMaker\OpenRA.ModMaker.csproj">
+      <Project>{537d0f9a-7bb8-44f4-b586-aab3cab22154}</Project>
+      <Name>OpenRA.ModMaker</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

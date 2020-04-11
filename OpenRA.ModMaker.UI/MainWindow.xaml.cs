@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using OpenRA.ModMaker.Model;
 
 namespace OpenRA.ModMaker.UI
 {
@@ -23,6 +24,12 @@ namespace OpenRA.ModMaker.UI
 		public MainWindow()
 		{
 			InitializeComponent();
+			 
+			var modsPath = "C:\\work\\games\\OpenRAModMaker\\OpenRA\\mods";
+			var workingDirectoryPath = "C:\\work\\games\\OpenRAModMaker\\OpenRA";
+
+			var mod = new Mod(workingDirectoryPath, modsPath, "ra");
+			this.DataContext = mod.Manifest;
 		}
 	}
 }
