@@ -29,8 +29,10 @@
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>        
         </TreeView>
-
-        <xctk:PropertyGrid Grid.Column="1" x:Name="PropertyGrid" Width="450" Margin="10">
-        </xctk:PropertyGrid>
+        <StackPanel Grid.Column="1" Orientation="Vertical">
+            <Button Name="Save" Click="Save_Click" Height="20"/>
+            <xctk:PropertyGrid x:Name="PropertyGrid" Width="450" Margin="10">
+            </xctk:PropertyGrid>
+        </StackPanel>
     </Grid>
 </Window>
