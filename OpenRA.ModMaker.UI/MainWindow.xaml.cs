@@ -46,7 +46,6 @@ namespace OpenRA.ModMaker.UI
 
 		private void Save_Click(object sender, RoutedEventArgs e)
 		{
-
 		}
 	}
 }

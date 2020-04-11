@@ -19,5 +19,11 @@ namespace OpenRA.ModMaker.Model
 			var pathResolver = new SimplePathResolver(this, mod.ModsDirectoryPath, mod.WorkingDirectoryPath);
 			this.Children.Add(new RuleSetCollection(this.yamlNodes.FirstOrDefault(x => x.Key == Constants.RulesNodeName)?.Value, pathResolver));
 		}
+
+		public override void SaveState()
+		{
+			base.SaveState();
+			this.yamlNodes.WriteToFile(this.yamlFilePath);
+		}
 	}
 }

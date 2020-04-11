@@ -15,7 +15,8 @@ namespace OpenRA.ModMaker.Model
 			this.Attributes = new AttributeDictionary<string, object>();
 		}
 
-		public string Name { 
+		public string Name 
+		{
 			get
 			{
 				return name;
@@ -27,7 +28,17 @@ namespace OpenRA.ModMaker.Model
 			}
 		}
 
-		public Node Parent { get; set; }
+		public virtual void SaveState() 
+		{
+			if(this.Children != null)
+			{
+				foreach (var childNode in this.Children)
+				{
+					childNode.SaveState();
+				}
+			}
+		}
+
 		public ObservableCollection<Node> Children { get; set; }
 		public AttributeDictionary<string, object> Attributes { get; set; }
 	}

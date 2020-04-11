@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using OpenRA.ModMaker.Services;
 
 namespace OpenRA.ModMaker.Model
@@ -27,6 +26,11 @@ namespace OpenRA.ModMaker.Model
 						this.Children.Add(new Actor(node));
 				}
 			}
+		}
+
+		public override void SaveState()
+		{
+			this.yamlNodes.WriteToFile(this.yamlFilePath);
 		}
 	}
 }

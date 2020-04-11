@@ -31,10 +31,10 @@
                         <TextBlock VerticalAlignment="Center" Text="{Binding Name}" />
                     </StackPanel>
                 </HierarchicalDataTemplate>
-            </TreeView.ItemTemplate>        
+            </TreeView.ItemTemplate>
         </TreeView>
         <StackPanel Grid.Column="1" Orientation="Vertical">
-            <Button Name="Save" Click="Save_Click" Height="20"/>
+            <Button Name="Save" Click="Save_Click" Height="20" Command="{Binding SaveCommand}">Save</Button>
             <xctk:PropertyGrid x:Name="PropertyGrid" Width="450" Margin="10" SelectedObject="{Binding SelectedAttributeSet}">
             </xctk:PropertyGrid>
         </StackPanel>

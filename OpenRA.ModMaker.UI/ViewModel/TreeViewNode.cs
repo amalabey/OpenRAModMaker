@@ -8,7 +8,7 @@ namespace OpenRA.ModMaker.UI.ViewModel
 {
 	public class TreeViewNode : BaseViewModel
 	{
-		private Node modDefinitionNode;
+		protected Node node;
 		public string Name { get; set; }
 		public virtual string Image { get; }
 		public bool IsExpanded { get; set; }
@@ -21,7 +21,7 @@ namespace OpenRA.ModMaker.UI.ViewModel
 			this.Attributes = new AttributeDictionary<string, object>();
 			this.Children = new ObservableCollection<TreeViewNode>();
 			this.SelectCommand = new RelayCommand<object>(OnNodeSelection, p => true);
-			this.modDefinitionNode = modDefinitionNode;
+			this.node = modDefinitionNode;
 			this.Name = modDefinitionNode.Name;
 
 			if (modDefinitionNode.Attributes != null)
@@ -32,7 +32,7 @@ namespace OpenRA.ModMaker.UI.ViewModel
 				}
 			}
 
-			this.Attributes.SyncTo(this.modDefinitionNode.Attributes);
+			this.Attributes.SyncTo(this.node.Attributes);
 		}
 
 		protected virtual void OnNodeSelection(object parameter) { }
