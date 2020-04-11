@@ -10,8 +10,6 @@ namespace OpenRA.ModMaker.Model
 		public event PropertyChangedEventHandler PropertyChanged = (sender, e) => { };
 		private string name;
 
-		public bool IsExpanded { get; set; }
-
 		public Node(NodeType nodeType)
 		{
 			this.nodeType = nodeType;

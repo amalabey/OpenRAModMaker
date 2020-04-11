@@ -14,10 +14,10 @@ namespace OpenRA.ModMaker.Model
 		{
 			this.yamlFilePath = Path.Combine(mod.ModsDirectoryPath, mod.ModId, "mod.yaml");
 			this.yamlNodes = MiniYaml.FromFile(this.yamlFilePath, false);
-			this.Children.Add(new Packages(this.yamlNodes.FirstOrDefault(x => x.Key == "Packages")?.Value));
+			this.Children.Add(new Packages(this.yamlNodes.FirstOrDefault(x => x.Key == Constants.PackagesNodeName)?.Value));
 
 			var pathResolver = new SimplePathResolver(this, mod.ModsDirectoryPath, mod.WorkingDirectoryPath);
-			this.Children.Add(new RuleSetCollection(this.yamlNodes.FirstOrDefault(x => x.Key == "Rules")?.Value, pathResolver));
+			this.Children.Add(new RuleSetCollection(this.yamlNodes.FirstOrDefault(x => x.Key == Constants.RulesNodeName)?.Value, pathResolver));
 		}
 	}
 }

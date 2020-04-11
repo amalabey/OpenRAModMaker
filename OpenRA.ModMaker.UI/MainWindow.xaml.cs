@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using OpenRA.ModMaker.Model;
+using OpenRA.ModMaker.UI.ViewModel;
 
 namespace OpenRA.ModMaker.UI
 {
@@ -29,7 +30,7 @@ namespace OpenRA.ModMaker.UI
 			var workingDirectoryPath = "C:\\work\\games\\OpenRAModMaker\\OpenRA";
 
 			var mod = new Mod(workingDirectoryPath, modsPath, "ra");
-			this.DataContext = mod.Manifest;
+			this.DataContext = new ManifestTreeViewNode(mod.Manifest);
 		}
 	}
 }
