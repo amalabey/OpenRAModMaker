@@ -32,10 +32,13 @@ namespace OpenRA.ModMaker.UI.ViewModel
 					this.Attributes.Add(attrib.Key, attrib.Value);
 				}
 			}
+
+			this.Attributes.OnAdd += (k, v) => this.modDefinitionNode.Attributes.Add(k, v);
+			this.Attributes.OnRemove += (k) => this.modDefinitionNode.Attributes.Remove(k);
+			this.Attributes.OnSet += (k, v) => this.modDefinitionNode.Attributes[k] = v ;
+			this.Attributes.OnClear += () => this.modDefinitionNode.Attributes.Clear();
 		}
 
-		protected virtual void OnNodeSelection(object parameter)
-		{
-		}
+		protected virtual void OnNodeSelection(object parameter) { }
 	}
 }

@@ -31,7 +31,7 @@ namespace OpenRA.ModMaker.Services
 				.Children
 				.FirstOrDefault(x => x.Name == Constants.PackagesNodeName)
 				.Attributes
-				.FirstOrDefault(kv => kv.Value == token).Key;
+				.FirstOrDefault(kv => (string)kv.Value == token).Key;
 
 			if (string.IsNullOrEmpty(packageKey))
 				throw new KeyNotFoundException($"Token: {token} not found in the registered packages in the manifest");

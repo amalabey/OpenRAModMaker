@@ -13,7 +13,7 @@ namespace OpenRA.ModMaker.Model
 			this.yaml = yaml;
 			if (yaml != null)
 			{
-				Attributes = yaml.ToAttributeDictionary<string, string>(s => s, n => n.Value);
+				Attributes = yaml.ToAttributeDictionary<string, object>(s => s, n => n.Value);
 			}
 		}
 	}

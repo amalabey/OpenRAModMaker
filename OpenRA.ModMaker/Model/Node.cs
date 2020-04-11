@@ -14,7 +14,7 @@ namespace OpenRA.ModMaker.Model
 		{
 			this.nodeType = nodeType;
 			this.Children = new ObservableCollection<Node>();
-			this.Attributes = new AttributeDictionary<string, string>();
+			this.Attributes = new AttributeDictionary<string, object>();
 		}
 
 		public string Name { 
@@ -39,6 +39,6 @@ namespace OpenRA.ModMaker.Model
 
 		public Node Parent { get; set; }
 		public ObservableCollection<Node> Children { get; set; }
-		public AttributeDictionary<string, string> Attributes { get; set; }
+		public AttributeDictionary<string, object> Attributes { get; set; }
 	}
 }
