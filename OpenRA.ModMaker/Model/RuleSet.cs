@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using OpenRA.ModMaker.Services;
 
 namespace OpenRA.ModMaker.Model
 {
@@ -8,18 +9,22 @@ namespace OpenRA.ModMaker.Model
 		private MiniYamlNode parentYamlNode;
 		private List<MiniYamlNode> yamlNodes;
 		private string yamlFilePath;
+		private IPathResolver pathResolver;
 
-		public RuleSet(MiniYamlNode yamlNode) : base(NodeType.RuleSet)
+		public RuleSet(MiniYamlNode yamlNode, IPathResolver pathResolver) : base(NodeType.RuleSet)
 		{
 			this.parentYamlNode = yamlNode;
-			if(this.yamlNodes != null)
+			this.pathResolver = pathResolver;
+			if(yamlNode != null)
 			{
-				this.yamlFilePath = yamlNode.Key;
+				var actualPath = pathResolver.ResolvePath(yamlNode.Key);
+				this.yamlFilePath = actualPath;
 				this.Name = yamlNode.Key;
-				this.yamlNodes = MiniYaml.FromFile(this.yamlFilePath, false);
+				this.yamlNodes = MiniYaml.FromFile(actualPath, false);
 				foreach (var node in this.yamlNodes)
 				{
-					this.Children.Add(new Actor(node));
+					if (!string.IsNullOrEmpty(node.Key))
+						this.Children.Add(new Actor(node));
 				}
 			}
 		}

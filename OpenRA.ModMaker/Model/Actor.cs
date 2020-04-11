@@ -12,7 +12,8 @@
 				this.Name = yaml.Key;
 				foreach (var node in yaml.Value.Nodes)
 				{
-					this.Children.Add(new Actor(node));
+					if(!string.IsNullOrEmpty(node.Key))
+						this.Children.Add(new Trait(node));
 				}
 			}
 		}

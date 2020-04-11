@@ -10,13 +10,12 @@ namespace OpenRA.ModMaker.Tests
 		[TestMethod]
 		public void TestMethod1()
 		{
-			var path = "C:\\work\\games\\OpenRAModMaker\\OpenRA\\mods\\ra\\mod.yaml";
-			//var modPackage = new ModDirectory();
-			//var manifest = modPackage.ReadManifest("C:\\work\\games\\OpenRAModMaker\\OpenRA\\mods\\ra", "ra");
-			//Assert.IsNotNull(manifest);
-			var manifest = new Manifest(path);
+			var modsPath = "C:\\work\\games\\OpenRAModMaker\\OpenRA\\mods";
+			var workingDirectoryPath = "C:\\work\\games\\OpenRAModMaker\\OpenRA";
 
-			Assert.IsNotNull(manifest);
+			var mod = new Mod(workingDirectoryPath, modsPath, "ra");
+
+			Assert.IsNotNull(mod.Manifest);
 		}
 	}
 }
