@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using OpenRA.ModMaker.Model;
+using OpenRA.ModMaker.UI.Adapters;
 using OpenRA.ModMaker.UI.ViewModel;
 
 namespace OpenRA.ModMaker.UI
@@ -31,6 +33,15 @@ namespace OpenRA.ModMaker.UI
 
 			var mod = new Mod(workingDirectoryPath, modsPath, "ra");
 			this.DataContext = new ManifestTreeViewNode(mod.Manifest);
+
+			this.Variables["Test"] = false;
+			this.Variables["Test2"] = 200;
+			this.Variables["Test.With.Dots"] = 200.5;
+			this.Variables["Test2.With.Dots"] = "help";
+
+			this.PropertyGrid.SelectedObject = new DictionaryPropertyGridAdapter<string, object>(this.Variables);
 		}
+
+		public IDictionary<string, object> Variables { get; set; } = new ConcurrentDictionary<string, object>();
 	}
 }
