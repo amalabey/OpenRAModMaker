@@ -14,12 +14,12 @@ namespace OpenRA.ModMaker.UI.ViewModel
 		public bool IsExpanded { get; set; }
 		public ICommand SelectCommand { get; set; }
 		public ObservableCollection<TreeViewNode> Children { get; set; }
-		public AttributeDictionary<string, string> Attributes { get; set; }
+		public AttributeDictionary<string, object> Attributes { get; set; }
 
 
 		public TreeViewNode(Node modDefinitionNode)
 		{
-			this.Attributes = new AttributeDictionary<string, string>();
+			this.Attributes = new AttributeDictionary<string, object>();
 			this.Children = new ObservableCollection<TreeViewNode>();
 			this.SelectCommand = new RelayCommand<object>(OnNodeSelection, p => true);
 			this.modDefinitionNode = modDefinitionNode;
@@ -34,7 +34,7 @@ namespace OpenRA.ModMaker.UI.ViewModel
 			}
 		}
 
-		private void OnNodeSelection(object parameter)
+		protected virtual void OnNodeSelection(object parameter)
 		{
 		}
 	}

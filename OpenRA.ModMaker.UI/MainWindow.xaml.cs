@@ -39,7 +39,7 @@ namespace OpenRA.ModMaker.UI
 			this.Variables["Test.With.Dots"] = 200.5;
 			this.Variables["Test2WithoutDots"] = "help";
 
-			this.PropertyGrid.SelectedObject = new DictionaryPropertyGridAdapter<string, object>(this.Variables);
+			//this.PropertyGrid.SelectedObject = new DictionaryPropertyGridAdapter<string, object>(this.Variables);
 		}
 
 		public IDictionary<string, object> Variables { get; set; } = new ConcurrentDictionary<string, object>();

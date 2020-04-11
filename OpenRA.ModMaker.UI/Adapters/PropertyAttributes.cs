@@ -7,5 +7,4 @@
         public string DisplayName { get; set; }
         public bool IsReadOnly { get; set; }
     }
-
 }

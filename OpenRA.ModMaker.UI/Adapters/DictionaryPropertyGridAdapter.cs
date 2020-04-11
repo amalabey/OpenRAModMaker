@@ -78,7 +78,7 @@ namespace OpenRA.ModMaker.UI.Adapters
             public override string Description => this.attributeDictionary?[this.key].Description ?? base.Description;
             public override string DisplayName => this.attributeDictionary?[this.key].DisplayName ?? base.DisplayName;
             public override bool IsReadOnly => this.attributeDictionary?[this.key].IsReadOnly ?? false;
-            public override Type PropertyType => this.valueDictionary[this.key].GetType();
+            public override Type PropertyType => this.valueDictionary[this.key] != null ? this.valueDictionary[this.key].GetType() : typeof(string);
             public override bool CanResetValue(object component)  => false;
             public override object GetValue(object component) => this.valueDictionary[this.key];
             public override void ResetValue(object component) {}

@@ -87,6 +87,7 @@
     <Compile Include="ViewModel\Base\BaseViewModel.cs" />
     <Compile Include="ViewModel\Base\RelayCommand.cs" />
     <Compile Include="ViewModel\ManifestTreeViewNode.cs" />
+    <Compile Include="ViewModel\ModViewModel.cs" />
     <Compile Include="ViewModel\PackagesTreeViewNode.cs" />
     <Compile Include="ViewModel\RuleSetCollectionTreeViewNode.cs" />
     <Compile Include="ViewModel\RuleSetTreeViewNode.cs" />

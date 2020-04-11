@@ -13,10 +13,10 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <TreeView Grid.Column="0" x:Name="FolderView" ItemsSource="{Binding Children}">
+        <TreeView Grid.Column="0" x:Name="ModDefinitionTreeView" ItemsSource="{Binding Children}">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectedItemChanged">
-                    <i:InvokeCommandAction Command="{Binding SelectCommand}" CommandParameter="{Binding ElementName=FolderView, Path=SelectedItem}"/>
+                    <i:InvokeCommandAction Command="{Binding SelectCommand}" CommandParameter="{Binding ElementName=ModDefinitionTreeView, Path=SelectedItem}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
             <TreeView.ItemContainerStyle>
@@ -35,7 +35,7 @@
         </TreeView>
         <StackPanel Grid.Column="1" Orientation="Vertical">
             <Button Name="Save" Click="Save_Click" Height="20"/>
-            <xctk:PropertyGrid x:Name="PropertyGrid" Width="450" Margin="10">
+            <xctk:PropertyGrid x:Name="PropertyGrid" Width="450" Margin="10" SelectedObject="{Binding SelectedAttributeSet}">
             </xctk:PropertyGrid>
         </StackPanel>
     </Grid>
