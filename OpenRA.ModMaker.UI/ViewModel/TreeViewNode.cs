@@ -16,7 +16,6 @@ namespace OpenRA.ModMaker.UI.ViewModel
 		public ObservableCollection<TreeViewNode> Children { get; set; }
 		public AttributeDictionary<string, object> Attributes { get; set; }
 
-
 		public TreeViewNode(Node modDefinitionNode)
 		{
 			this.Attributes = new AttributeDictionary<string, object>();
@@ -33,7 +32,7 @@ namespace OpenRA.ModMaker.UI.ViewModel
 				}
 			}
 
-			this.Attributes.KeepInSyncWith(this.modDefinitionNode.Attributes);
+			this.Attributes.SyncTo(this.modDefinitionNode.Attributes);
 		}
 
 		protected virtual void OnNodeSelection(object parameter) { }

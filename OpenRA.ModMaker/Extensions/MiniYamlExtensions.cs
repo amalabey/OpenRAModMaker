@@ -31,5 +31,13 @@ namespace OpenRA.ModMaker.Extensions
 
 			return ret;
 		}
+
+		public static void SyncFrom(this MiniYaml yml, AttributeDictionary<string,object> dict)
+		{
+			dict.OnAdd += (k, v) => yml.Nodes.Add(new MiniYamlNode(k, new MiniYaml((string)v)));
+			dict.OnRemove += (k) => yml.Nodes.Remove(yml.Nodes.FirstOrDefault(x => x.Key == k));
+			dict.OnSet += (k, v) => yml.Nodes.FirstOrDefault(x => x.Key == k).Value.Value = (string)v;
+			dict.OnClear += () => yml.Nodes.Clear();
+		}
 	}
 }

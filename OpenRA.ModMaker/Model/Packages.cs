@@ -14,6 +14,7 @@ namespace OpenRA.ModMaker.Model
 			if (yaml != null)
 			{
 				Attributes = yaml.ToAttributeDictionary<string, object>(s => s, n => n.Value);
+				yaml.SyncFrom(Attributes);
 			}
 		}
 	}
