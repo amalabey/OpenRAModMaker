@@ -4,7 +4,7 @@ using System.Windows.Data;
 using System.Windows.Media.Imaging;
 using OpenRA.ModMaker.UI.ViewModel;
 
-namespace OpenRA.ModMaker.UI.ValueConverters
+namespace OpenRA.ModMaker.UI
 {
 	[ValueConversion(typeof(TreeViewNode), typeof(BitmapImage))]
 	public class NodeToImageConverter : IValueConverter
