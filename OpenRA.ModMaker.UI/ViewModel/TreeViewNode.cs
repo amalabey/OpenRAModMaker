@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
 using OpenRA.ModMaker.Model;
 using OpenRA.ModMaker.Primitives;
@@ -10,6 +9,8 @@ namespace OpenRA.ModMaker.UI.ViewModel
 	public class TreeViewNode : BaseViewModel
 	{
 		protected Node node;
+		protected readonly IMediatorContext context;
+
 		public string Name { get; set; }
 		public virtual string Image { get; }
 		public bool IsExpanded { get; set; }
@@ -18,35 +19,43 @@ namespace OpenRA.ModMaker.UI.ViewModel
 		public AttributeDictionary<string, object> Attributes { get; set; }
 		public ObservableCollection<NodeAction> ContextActions { get; set; }
 
-		public TreeViewNode(Node modDefinitionNode)
+		public TreeViewNode(Node node, IMediatorContext context)
 		{
 			this.Attributes = new AttributeDictionary<string, object>();
 			this.Children = new ObservableCollection<TreeViewNode>();
 			this.SelectCommand = new RelayCommand<object>(OnNodeSelection, p => true);
-			this.node = modDefinitionNode;
-			this.Name = modDefinitionNode.Name;
+			this.node = node;
+			this.context = context;
+			this.Name = node.Name;
 
-			if (modDefinitionNode.Attributes != null)
+			if (node.Attributes != null)
 			{
-				foreach (var attrib in modDefinitionNode.Attributes)
+				foreach (var attrib in node.Attributes)
 				{
 					this.Attributes.Add(attrib.Key, attrib.Value);
 				}
 			}
 
 			this.Attributes.SyncTo(this.node.Attributes);
-			this.ContextActions = new ObservableCollection<NodeAction>
+			this.ContextActions = GetContextActions();
+		}
+
+		protected virtual ObservableCollection<NodeAction> GetContextActions()
+		{
+			return new ObservableCollection<NodeAction>
 			{
 				new NodeAction
 				{
-					Name = "Add Property",
+					Name = ContextActionNames.AddAttribute,
 					Command = new RelayCommand<object>(OnAddAttribute, p => true) }
 			};
 		}
 
-		private void OnAddAttribute(object parameter)
+		protected virtual void OnAddAttribute(object parameter)
 		{
-
+			// #todo: add attribute using modal popup
+			Attributes.Add("TestAttrib", "testval");
+			context.NotifyAttributeAdded(this);
 		}
 
 		protected virtual void OnNodeSelection(object parameter) { }

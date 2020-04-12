@@ -4,7 +4,7 @@ namespace OpenRA.ModMaker.UI.ViewModel
 {
 	public class TraitTreeViewNode : TreeViewNode
 	{
-		public TraitTreeViewNode(Trait modDefinitionNode) : base(modDefinitionNode)
+		public TraitTreeViewNode(Trait node, IMediatorContext context) : base(node, context)
 		{
 		}
 

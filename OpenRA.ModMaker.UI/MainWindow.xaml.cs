@@ -38,7 +38,7 @@ namespace OpenRA.ModMaker.UI
 			var dialogService = new DialogService(frameworkDialogFactory: new CustomFrameworkDialogFactory());
 
 			//var mod = new Mod(workingDirectoryPath, modsPath, "ra");
-			this.DataContext = new ModViewModel(workingDirectoryPath, modsPath, "yr");
+			this.DataContext = new ModViewModel(dialogService, workingDirectoryPath, modsPath, "yr");
 			//this.DataContext = new ModViewModel(dialogService);
 		}
 	}

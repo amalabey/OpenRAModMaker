@@ -12,26 +12,31 @@ namespace OpenRA.ModMaker.UI.ViewModel
 	{
 		private Mod mod;
 		private readonly IDialogService dialogService;
+		private readonly MediatorContext context;
 
 		public ManifestTreeViewNode Manifest { get; set; }
 		public ICommand OpenCommand { get; set; }
 
-		public ModViewModel(string workingDirectoryPath, string modsDirectoryPath, string modId)
+		public ModViewModel(IDialogService dialogService, string workingDirectoryPath, string modsDirectoryPath, string modId)
 		{
 			this.OpenCommand = new RelayCommand<object>(OpenManifest, p => true);
+			this.dialogService = dialogService;
+			this.context = new MediatorContext();
+
 			LoadMod(workingDirectoryPath, modsDirectoryPath, modId);
 		}
 
 		public ModViewModel(IDialogService dialogService)
 		{
 			this.OpenCommand = new RelayCommand<object>(OpenManifest, p => true);
+			this.context = new MediatorContext();
 			this.dialogService = dialogService;
 		}
 
 		private void LoadMod(string workingDirectoryPath, string modsDirectoryPath, string modId)
 		{
 			this.mod = new Mod(workingDirectoryPath, modsDirectoryPath, modId);
-			this.Manifest = new ManifestTreeViewNode(this.mod.Manifest);
+			this.Manifest = new ManifestTreeViewNode(this.mod.Manifest, this.context);
 		}
 
 		private void LoadMod(string manifestPath)

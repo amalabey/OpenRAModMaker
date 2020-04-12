@@ -4,13 +4,13 @@ namespace OpenRA.ModMaker.UI.ViewModel
 {
 	public class RuleSetTreeViewNode : TreeViewNode
 	{
-		public RuleSetTreeViewNode(RuleSet modDefinitionNode) : base(modDefinitionNode)
+		public RuleSetTreeViewNode(RuleSet node, IMediatorContext context) : base(node, context)
 		{
-			if (modDefinitionNode.Children != null)
+			if (node.Children != null)
 			{
-				foreach (var actor in modDefinitionNode.Children)
+				foreach (var actor in node.Children)
 				{
-					this.Children.Add(new ActorTreeViewNode((OpenRA.ModMaker.Model.Actor)actor));
+					this.Children.Add(new ActorTreeViewNode((OpenRA.ModMaker.Model.Actor)actor, context));
 				}
 			}
 		}

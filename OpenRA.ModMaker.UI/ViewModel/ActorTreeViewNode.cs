@@ -4,13 +4,13 @@ namespace OpenRA.ModMaker.UI.ViewModel
 {
 	public class ActorTreeViewNode : TreeViewNode
 	{
-		public ActorTreeViewNode(OpenRA.ModMaker.Model.Actor modDefinitionNode) : base(modDefinitionNode)
+		public ActorTreeViewNode(OpenRA.ModMaker.Model.Actor node, IMediatorContext context) : base(node, context)
 		{
-			if(modDefinitionNode.Children != null)
+			if(node.Children != null)
 			{
-				foreach (var trait in modDefinitionNode.Children)
+				foreach (var trait in node.Children)
 				{
-					this.Children.Add(new TraitTreeViewNode((Trait)trait));
+					this.Children.Add(new TraitTreeViewNode((Trait)trait, context));
 				}
 			}
 		}
