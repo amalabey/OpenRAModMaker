@@ -23,7 +23,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Menu DockPanel.Dock="Top" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+        <Menu DockPanel.Dock="Top" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Background="{x:Null}">
             <MenuItem Header="_File">
                 <MenuItem Header="Open" Command="{Binding OpenCommand}"/>
                 <MenuItem Header="Save" Command="{Binding Path=Manifest.SaveCommand}" />
@@ -36,32 +36,36 @@
                 <MenuItem Command="Paste" />
             </MenuItem>
         </Menu>
-        <TreeView VerticalAlignment="Stretch" Grid.Row="1" Grid.Column="0" Margin="5,5,5,5"
-                  x:Name="ModDefinitionTreeView" ItemsSource="{Binding Path=Manifest.Children}">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="SelectedItemChanged">
-                    <i:InvokeCommandAction Command="{Binding Path=Manifest.SelectCommand}" CommandParameter="{Binding ElementName=ModDefinitionTreeView, Path=SelectedItem}"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-            <TreeView.ItemContainerStyle>
-                <Style TargetType="{x:Type TreeViewItem}">
-                    <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
-                </Style>
-            </TreeView.ItemContainerStyle>
-            <TreeView.ItemTemplate>
-                <HierarchicalDataTemplate ItemsSource="{Binding Children}">
-                    <StackPanel Orientation="Horizontal">
-                        <Image Width="20" Margin="3" Source="{Binding Image, Converter={x:Static local:NodeToImageConverter.Instance}}" />
-                        <TextBlock VerticalAlignment="Center" Text="{Binding Name}" />
-                    </StackPanel>
-                </HierarchicalDataTemplate>
-            </TreeView.ItemTemplate>
-        </TreeView>
-        <ScrollViewer Grid.Row="1" Grid.Column="1" VerticalScrollBarVisibility="Auto">
-            <StackPanel Orientation="Vertical" VerticalAlignment="Stretch">
-                <xctk:PropertyGrid  x:Name="PropertyGrid" ShowTitle="False" Margin="0,5,5,5" SelectedObject="{Binding Path=Manifest.SelectedAttributeSet}">
-                </xctk:PropertyGrid>
-            </StackPanel>
-        </ScrollViewer>
+        <GroupBox Header="Manifest" VerticalAlignment="Stretch" Grid.Row="1" Grid.Column="0" Margin="5,5,5,5">
+            <TreeView VerticalAlignment="Stretch" 
+                  x:Name="ModDefinitionTreeView" ItemsSource="{Binding Path=Manifest.Children}" BorderBrush="{x:Null}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectedItemChanged">
+                        <i:InvokeCommandAction Command="{Binding Path=Manifest.SelectCommand}" CommandParameter="{Binding ElementName=ModDefinitionTreeView, Path=SelectedItem}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <TreeView.ItemContainerStyle>
+                    <Style TargetType="{x:Type TreeViewItem}">
+                        <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+                    </Style>
+                </TreeView.ItemContainerStyle>
+                <TreeView.ItemTemplate>
+                    <HierarchicalDataTemplate ItemsSource="{Binding Children}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Width="20" Margin="3" Source="{Binding Image, Converter={x:Static local:NodeToImageConverter.Instance}}" />
+                            <TextBlock VerticalAlignment="Center" Text="{Binding Name}" />
+                        </StackPanel>
+                    </HierarchicalDataTemplate>
+                </TreeView.ItemTemplate>
+            </TreeView>
+        </GroupBox>
+        <GroupBox Header="Properties" Grid.Row="1" Grid.Column="1" Margin="0,5,5,5">
+            <ScrollViewer  VerticalScrollBarVisibility="Auto">
+                <StackPanel Orientation="Vertical" VerticalAlignment="Stretch">
+                    <xctk:PropertyGrid  x:Name="PropertyGrid" ShowTitle="False" SelectedObject="{Binding Path=Manifest.SelectedAttributeSet}" BorderBrush="{x:Null}">
+                    </xctk:PropertyGrid>
+                </StackPanel>
+            </ScrollViewer>
+        </GroupBox>
     </Grid>
 </Window>
