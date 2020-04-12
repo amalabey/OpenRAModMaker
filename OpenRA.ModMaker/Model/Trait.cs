@@ -12,7 +12,7 @@ namespace OpenRA.ModMaker.Model
 			if(this.yamlNode != null)
 			{
 				this.Name = yamlNode.Key;
-				Attributes = yamlNode.Value.ToAttributeDictionary<string, object>(s => s, n => n.Value);
+				Attributes = yamlNode.Value.ToAttributeDictionary<object>(s => s, n => n.Value);
 				yamlNode.Value.SyncFrom(Attributes);
 			}
 		}

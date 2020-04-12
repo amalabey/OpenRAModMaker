@@ -41,6 +41,9 @@
     <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.19\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
     </Reference>
+    <Reference Include="MvvmDialogs, Version=7.0.0.0, Culture=neutral, PublicKeyToken=3d3b9708589bc73e, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmDialogs.7.0.0\lib\net462\MvvmDialogs.dll</HintPath>
+    </Reference>
     <Reference Include="PropertyChanged, Version=3.2.7.0, Culture=neutral, PublicKeyToken=ee3ee20bcf148ddd, processorArchitecture=MSIL">
       <HintPath>..\packages\PropertyChanged.Fody.3.2.7\lib\net40\PropertyChanged.dll</HintPath>
     </Reference>
@@ -81,6 +84,8 @@
     </ApplicationDefinition>
     <Compile Include="Adapters\DictionaryPropertyGridAdapter.cs" />
     <Compile Include="Adapters\PropertyAttributes.cs" />
+    <Compile Include="Dialogs\CustomFrameworkDialogFactory.cs" />
+    <Compile Include="Dialogs\CustomOpenFileDialog.cs" />
     <Compile Include="Extensions\IEnumerableExtensions.cs" />
     <Compile Include="ValueConverters\NodeToImageConverter.cs" />
     <Compile Include="ViewModel\ActorTreeViewNode.cs" />

@@ -11,21 +11,24 @@ namespace OpenRA.ModMaker.Extensions
 {
 	public static class MiniYamlExtensions
 	{
-		public static AttributeDictionary<TKey, TElement> ToAttributeDictionary<TKey, TElement>(this MiniYaml yml,
-			Func<string, TKey> keySelector, Func<MiniYaml, TElement> elementSelector)
+		public static AttributeDictionary<string, T> ToAttributeDictionary<T>(this MiniYaml yml,
+			Func<string, string> keySelector, Func<MiniYaml, T> elementSelector)
 		{
-			var ret = new AttributeDictionary<TKey, TElement>();
+			var ret = new AttributeDictionary<string, T>();
 			foreach (var y in yml.Nodes)
 			{
 				var key = keySelector(y.Key);
-				var element = elementSelector(y.Value);
-				try
+				if (!String.IsNullOrEmpty(key))
 				{
-					ret.Add(key, element);
-				}
-				catch (ArgumentException ex)
-				{
-					throw new InvalidDataException("Duplicate key '{0}' in {1}".F(y.Key, y.Location), ex);
+					var element = elementSelector(y.Value);
+					try
+					{
+						ret.Add(key, element);
+					}
+					catch (ArgumentException ex)
+					{
+						throw new InvalidDataException("Duplicate key '{0}' in {1}".F(y.Key, y.Location), ex);
+					}
 				}
 			}
 

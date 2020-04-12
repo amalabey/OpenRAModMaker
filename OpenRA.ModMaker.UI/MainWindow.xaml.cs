@@ -13,8 +13,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MvvmDialogs;
 using OpenRA.ModMaker.Model;
 using OpenRA.ModMaker.UI.Adapters;
+using OpenRA.ModMaker.UI.Dialogs;
 using OpenRA.ModMaker.UI.ViewModel;
 
 namespace OpenRA.ModMaker.UI
@@ -30,22 +32,11 @@ namespace OpenRA.ModMaker.UI
 			 
 			var modsPath = "C:\\work\\games\\OpenRAModMaker\\OpenRA\\mods";
 			var workingDirectoryPath = "C:\\work\\games\\OpenRAModMaker\\OpenRA";
+			var dialogService = new DialogService(frameworkDialogFactory: new CustomFrameworkDialogFactory());
 
-			var mod = new Mod(workingDirectoryPath, modsPath, "ra");
-			this.DataContext = new ManifestTreeViewNode(mod.Manifest);
-
-			this.Variables["Test"] = false;
-			this.Variables["Test2"] = 200;
-			this.Variables["Test.With.Dots"] = 200.5;
-			this.Variables["Test2WithoutDots"] = "help";
-
-			//this.PropertyGrid.SelectedObject = new DictionaryPropertyGridAdapter<string, object>(this.Variables);
-		}
-
-		public IDictionary<string, object> Variables { get; set; } = new ConcurrentDictionary<string, object>();
-
-		private void Save_Click(object sender, RoutedEventArgs e)
-		{
+			//var mod = new Mod(workingDirectoryPath, modsPath, "ra");
+			//this.DataContext = new ModViewModel(workingDirectoryPath, modsPath, "ra");
+			this.DataContext = new ModViewModel(dialogService);
 		}
 	}
 }

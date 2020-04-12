@@ -6,37 +6,55 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:OpenRA.ModMaker.UI"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:md="https://github.com/fantasticfiasco/mvvm-dialogs"
         mc:Ignorable="d"
+        md:DialogServiceViews.IsRegistered="True"
         Title="MainWindow" Height="450" Width="800">
-    <Grid Margin="5">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <TreeView Grid.Column="0" x:Name="ModDefinitionTreeView" ItemsSource="{Binding Children}">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="SelectedItemChanged">
-                    <i:InvokeCommandAction Command="{Binding SelectCommand}" CommandParameter="{Binding ElementName=ModDefinitionTreeView, Path=SelectedItem}"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-            <TreeView.ItemContainerStyle>
-                <Style TargetType="{x:Type TreeViewItem}">
-                    <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
-                </Style>
-            </TreeView.ItemContainerStyle>
-            <TreeView.ItemTemplate>
-                <HierarchicalDataTemplate ItemsSource="{Binding Children}">
-                    <StackPanel Orientation="Horizontal">
-                        <Image Width="20" Margin="3" Source="{Binding Image, Converter={x:Static local:ValueConverters.NodeToImageConverter.Instance}}" />
-                        <TextBlock VerticalAlignment="Center" Text="{Binding Name}" />
-                    </StackPanel>
-                </HierarchicalDataTemplate>
-            </TreeView.ItemTemplate>
-        </TreeView>
-        <StackPanel Grid.Column="1" Orientation="Vertical">
-            <Button Name="Save" Click="Save_Click" Height="20" Command="{Binding SaveCommand}">Save</Button>
-            <xctk:PropertyGrid x:Name="PropertyGrid" Width="450" Margin="10" SelectedObject="{Binding SelectedAttributeSet}">
-            </xctk:PropertyGrid>
-        </StackPanel>
-    </Grid>
+    <StackPanel Orientation="Vertical">
+        <DockPanel>
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="_File">
+                    <MenuItem Header="Open" Command="{Binding OpenCommand}"/>
+                    <MenuItem Header="Save" Command="{Binding Path=Manifest.SaveCommand}" />
+                    <Separator />
+                    <MenuItem Header="_Exit" />
+                </MenuItem>
+                <MenuItem Header="_Edit">
+                    <MenuItem Command="Cut" />
+                    <MenuItem Command="Copy" />
+                    <MenuItem Command="Paste" />
+                </MenuItem>
+            </Menu>
+        </DockPanel>
+        <Grid Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TreeView Grid.Column="0" x:Name="ModDefinitionTreeView" ItemsSource="{Binding Path=Manifest.Children}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectedItemChanged">
+                        <i:InvokeCommandAction Command="{Binding Path=Manifest.SelectCommand}" CommandParameter="{Binding ElementName=ModDefinitionTreeView, Path=SelectedItem}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <TreeView.ItemContainerStyle>
+                    <Style TargetType="{x:Type TreeViewItem}">
+                        <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+                    </Style>
+                </TreeView.ItemContainerStyle>
+                <TreeView.ItemTemplate>
+                    <HierarchicalDataTemplate ItemsSource="{Binding Children}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Width="20" Margin="3" Source="{Binding Image, Converter={x:Static local:ValueConverters.NodeToImageConverter.Instance}}" />
+                            <TextBlock VerticalAlignment="Center" Text="{Binding Name}" />
+                        </StackPanel>
+                    </HierarchicalDataTemplate>
+                </TreeView.ItemTemplate>
+            </TreeView>
+            <StackPanel Grid.Column="1" Orientation="Vertical">
+                <xctk:PropertyGrid x:Name="PropertyGrid" Width="450" Margin="10" SelectedObject="{Binding Path=Manifest.SelectedAttributeSet}">
+                </xctk:PropertyGrid>
+            </StackPanel>
+        </Grid>
+    </StackPanel>
 </Window>
