@@ -10,7 +10,7 @@
         md:DialogServiceViews.IsRegistered="True"
         mc:Ignorable="d"        
         Title="OpenRA Mod Editor" 
-        Height="1200" Width="1500"
+        Height="1000" Width="1500"
         WindowStartupLocation="CenterScreen"
         >
     <Grid>

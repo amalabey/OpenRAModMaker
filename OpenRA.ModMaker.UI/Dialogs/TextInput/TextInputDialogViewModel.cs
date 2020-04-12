@@ -10,7 +10,7 @@ namespace OpenRA.ModMaker.UI.Dialogs.TextInput
         {
             OkCommand = new RelayCommand<object>(Ok, p => true);
         }
-
+        public string Title { get; set; }
         public string Text { get; set; }
         public ICommand OkCommand { get; }
         public bool? DialogResult { get; set; }

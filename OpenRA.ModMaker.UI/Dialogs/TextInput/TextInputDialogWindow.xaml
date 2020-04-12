@@ -7,25 +7,25 @@
         xmlns:md="https://github.com/fantasticfiasco/mvvm-dialogs"
         md:DialogServiceViews.IsRegistered="True"
         mc:Ignorable="d"
-        Title="Text Input"
+        Icon="/Images/keyboard.png"
+        Title="{Binding Title}"
         WindowStartupLocation="CenterOwner"
         SizeToContent="WidthAndHeight"
         ResizeMode="NoResize"
         d:DataContext="{d:DesignInstance {x:Type local:TextInputDialogViewModel}}"
         >
-    <StackPanel>
-        <TextBox Text="{Binding Text, UpdateSourceTrigger=PropertyChanged}" />
-
         <StackPanel
             Orientation="Horizontal"
+            Margin="5,0,5,5"
             HorizontalAlignment="Right">
-            <Button
-                Content="OK"
+            <TextBox Width="150" Margin="0,0,5,0" TextAlignment="Left" VerticalContentAlignment="Center"
+                     Text="{Binding Text, UpdateSourceTrigger=PropertyChanged}" />
+        <Button
                 Command="{Binding OkCommand}"
-                IsDefault="True" />
-            <Button
-                Content="Cancel"
-                IsCancel="True" />
-        </StackPanel>
+                IsDefault="True">
+            <StackPanel>
+                <Image Source="/Images/ok.png" />
+            </StackPanel>
+        </Button>
     </StackPanel>
 </Window>

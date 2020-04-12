@@ -60,7 +60,10 @@ namespace OpenRA.ModMaker.UI.ViewModel
 
 		protected virtual void OnAddAttribute(object parameter)
 		{
-			var textInputData = new TextInputDialogViewModel();
+			var textInputData = new TextInputDialogViewModel
+			{
+				Title = "Property Name"
+			};
 			bool? success = dialogService.ShowCustomDialog<TextInputDialog>(ownerViewModel, textInputData);
 			if (success == true)
 			{
