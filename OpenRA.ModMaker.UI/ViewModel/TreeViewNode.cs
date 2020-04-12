@@ -1,7 +1,10 @@
 ﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Windows.Input;
+using MvvmDialogs;
 using OpenRA.ModMaker.Model;
 using OpenRA.ModMaker.Primitives;
+using OpenRA.ModMaker.UI.Dialogs.TextInput;
 using OpenRA.ModMaker.UI.ViewModel.Base;
 
 namespace OpenRA.ModMaker.UI.ViewModel
@@ -9,7 +12,9 @@ namespace OpenRA.ModMaker.UI.ViewModel
 	public class TreeViewNode : BaseViewModel
 	{
 		protected Node node;
-		protected readonly IMediatorContext context;
+		protected readonly IMediator context;
+		protected readonly INotifyPropertyChanged ownerViewModel;
+		protected readonly IDialogService dialogService;
 
 		public string Name { get; set; }
 		public virtual string Image { get; }
@@ -19,7 +24,7 @@ namespace OpenRA.ModMaker.UI.ViewModel
 		public AttributeDictionary<string, object> Attributes { get; set; }
 		public ObservableCollection<NodeAction> ContextActions { get; set; }
 
-		public TreeViewNode(Node node, IMediatorContext context)
+		public TreeViewNode(Node node, IMediator context, INotifyPropertyChanged ownerViewModel, IDialogService dialogService)
 		{
 			this.Attributes = new AttributeDictionary<string, object>();
 			this.Children = new ObservableCollection<TreeViewNode>();
@@ -27,6 +32,8 @@ namespace OpenRA.ModMaker.UI.ViewModel
 			this.node = node;
 			this.context = context;
 			this.Name = node.Name;
+			this.ownerViewModel = ownerViewModel;
+			this.dialogService = dialogService;
 
 			if (node.Attributes != null)
 			{
@@ -53,9 +60,13 @@ namespace OpenRA.ModMaker.UI.ViewModel
 
 		protected virtual void OnAddAttribute(object parameter)
 		{
-			// #todo: add attribute using modal popup
-			Attributes.Add("TestAttrib", "testval");
-			context.NotifyAttributeAdded(this);
+			var textInputData = new TextInputDialogViewModel();
+			bool? success = dialogService.ShowCustomDialog<TextInputDialog>(ownerViewModel, textInputData);
+			if (success == true)
+			{
+				Attributes.Add(textInputData.Text, string.Empty);
+				context.NotifyAttributeAdded(this);
+			}
 		}
 
 		protected virtual void OnNodeSelection(object parameter) { }

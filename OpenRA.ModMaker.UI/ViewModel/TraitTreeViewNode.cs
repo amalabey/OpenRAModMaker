@@ -1,10 +1,13 @@
-﻿using OpenRA.ModMaker.Model;
+﻿using System.ComponentModel;
+using MvvmDialogs;
+using OpenRA.ModMaker.Model;
 
 namespace OpenRA.ModMaker.UI.ViewModel
 {
 	public class TraitTreeViewNode : TreeViewNode
 	{
-		public TraitTreeViewNode(Trait node, IMediatorContext context) : base(node, context)
+		public TraitTreeViewNode(Trait node, IMediator context, INotifyPropertyChanged ownerViewModel, IDialogService dialogService) 
+			: base(node, context, ownerViewModel, dialogService)
 		{
 		}
 

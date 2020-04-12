@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
+using OpenRA.ModMaker.UI.Dialogs.TextInput;
 
 namespace OpenRA.ModMaker.UI.ViewModel
 {
 	public delegate void AttributeAddedEventHandler(TreeViewNode node);
 
-	public interface IMediatorContext
+	public interface IMediator
 	{
 		event AttributeAddedEventHandler AttributeAdded;
-
 		void NotifyAttributeAdded(TreeViewNode node);
 	}
 }

@@ -1,6 +1,10 @@
-﻿namespace OpenRA.ModMaker.UI.ViewModel
+﻿using System.ComponentModel;
+using MvvmDialogs;
+using OpenRA.ModMaker.UI.Dialogs.TextInput;
+
+namespace OpenRA.ModMaker.UI.ViewModel
 {
-	public class MediatorContext : IMediatorContext
+	public class Mediator : IMediator
 	{
 		public event AttributeAddedEventHandler AttributeAdded = (node) => { };
 

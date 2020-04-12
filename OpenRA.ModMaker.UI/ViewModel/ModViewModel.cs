@@ -12,7 +12,7 @@ namespace OpenRA.ModMaker.UI.ViewModel
 	{
 		private Mod mod;
 		private readonly IDialogService dialogService;
-		private readonly MediatorContext context;
+		private readonly Mediator context;
 
 		public ManifestTreeViewNode Manifest { get; set; }
 		public ICommand OpenCommand { get; set; }
@@ -21,7 +21,7 @@ namespace OpenRA.ModMaker.UI.ViewModel
 		{
 			this.OpenCommand = new RelayCommand<object>(OpenManifest, p => true);
 			this.dialogService = dialogService;
-			this.context = new MediatorContext();
+			this.context = new Mediator();
 
 			LoadMod(workingDirectoryPath, modsDirectoryPath, modId);
 		}
@@ -29,14 +29,14 @@ namespace OpenRA.ModMaker.UI.ViewModel
 		public ModViewModel(IDialogService dialogService)
 		{
 			this.OpenCommand = new RelayCommand<object>(OpenManifest, p => true);
-			this.context = new MediatorContext();
+			this.context = new Mediator();
 			this.dialogService = dialogService;
 		}
 
 		private void LoadMod(string workingDirectoryPath, string modsDirectoryPath, string modId)
 		{
 			this.mod = new Mod(workingDirectoryPath, modsDirectoryPath, modId);
-			this.Manifest = new ManifestTreeViewNode(this.mod.Manifest, this.context);
+			this.Manifest = new ManifestTreeViewNode(this.mod.Manifest, this.context, this, this.dialogService);
 		}
 
 		private void LoadMod(string manifestPath)
@@ -60,7 +60,7 @@ namespace OpenRA.ModMaker.UI.ViewModel
 				InitialDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
 				Filter = "Yaml Files (*.yaml)|*.yaml|All Files (*.*)|*.*"
 			};
-
+			
 			bool? success = dialogService.ShowOpenFileDialog(this, settings);
 			if (success == true)
 			{

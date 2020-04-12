@@ -87,12 +87,17 @@
     <Compile Include="ContextActionNames.cs" />
     <Compile Include="Dialogs\CustomFrameworkDialogFactory.cs" />
     <Compile Include="Dialogs\CustomOpenFileDialog.cs" />
+    <Compile Include="Dialogs\TextInput\TextInputDialog.cs" />
+    <Compile Include="Dialogs\TextInput\TextInputDialogViewModel.cs" />
+    <Compile Include="Dialogs\TextInput\TextInputDialogWindow.xaml.cs">
+      <DependentUpon>TextInputDialogWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Extensions\IEnumerableExtensions.cs" />
     <Compile Include="ValueConverters\NodeToImageConverter.cs" />
     <Compile Include="ViewModel\ActorTreeViewNode.cs" />
     <Compile Include="ViewModel\Base\BaseViewModel.cs" />
     <Compile Include="ViewModel\Base\RelayCommand.cs" />
-    <Compile Include="ViewModel\IMediatorContext.cs" />
+    <Compile Include="ViewModel\IMediator.cs" />
     <Compile Include="ViewModel\ManifestTreeViewNode.cs" />
     <Compile Include="ViewModel\ModViewModel.cs" />
     <Compile Include="ViewModel\NodeAction.cs" />
@@ -101,7 +106,11 @@
     <Compile Include="ViewModel\RuleSetTreeViewNode.cs" />
     <Compile Include="ViewModel\TraitTreeViewNode.cs" />
     <Compile Include="ViewModel\TreeViewNode.cs" />
-    <Compile Include="ViewModel\MediatorContext.cs" />
+    <Compile Include="ViewModel\Mediator.cs" />
+    <Page Include="Dialogs\TextInput\TextInputDialogWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
