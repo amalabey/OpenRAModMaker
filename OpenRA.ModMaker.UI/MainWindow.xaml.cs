@@ -29,14 +29,17 @@ namespace OpenRA.ModMaker.UI
 		public MainWindow()
 		{
 			InitializeComponent();
-			 
-			var modsPath = "C:\\work\\games\\OpenRAModMaker\\OpenRA\\mods";
-			var workingDirectoryPath = "C:\\work\\games\\OpenRAModMaker\\OpenRA";
+
+			//var modsPath = "C:\\work\\games\\OpenRAModMaker\\OpenRA\\mods";
+			//var workingDirectoryPath = "C:\\work\\games\\OpenRAModMaker\\OpenRA";
+
+			var modsPath = "C:\\work\\games\\Yuris-Revenge\\mods";
+			var workingDirectoryPath = "C:\\work\\games\\Yuris-Revenge";
 			var dialogService = new DialogService(frameworkDialogFactory: new CustomFrameworkDialogFactory());
 
 			//var mod = new Mod(workingDirectoryPath, modsPath, "ra");
-			//this.DataContext = new ModViewModel(workingDirectoryPath, modsPath, "ra");
-			this.DataContext = new ModViewModel(dialogService);
+			this.DataContext = new ModViewModel(workingDirectoryPath, modsPath, "yr");
+			//this.DataContext = new ModViewModel(dialogService);
 		}
 	}
 }

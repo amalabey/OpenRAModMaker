@@ -57,9 +57,11 @@
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>
         </TreeView>
-        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical" VerticalAlignment="Stretch">
-            <xctk:PropertyGrid x:Name="PropertyGrid" ShowTitle="False" Margin="0,5,5,5" SelectedObject="{Binding Path=Manifest.SelectedAttributeSet}">
-            </xctk:PropertyGrid>
-        </StackPanel>
+        <ScrollViewer Grid.Row="1" Grid.Column="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel Orientation="Vertical" VerticalAlignment="Stretch">
+                <xctk:PropertyGrid  x:Name="PropertyGrid" ShowTitle="False" Margin="0,5,5,5" SelectedObject="{Binding Path=Manifest.SelectedAttributeSet}">
+                </xctk:PropertyGrid>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Window>
