@@ -71,10 +71,11 @@
         </GroupBox>
         <GroupBox Header="Properties" Grid.Row="1" Grid.Column="1" Margin="0,5,5,5">
             <ScrollViewer  VerticalScrollBarVisibility="Auto">
-                <StackPanel Orientation="Vertical" VerticalAlignment="Stretch">
+                <!--<StackPanel Orientation="Vertical" VerticalAlignment="Stretch">
                     <xctk:PropertyGrid  x:Name="PropertyGrid" ShowTitle="False" SelectedObject="{Binding Path=Manifest.SelectedAttributeSet}" BorderBrush="{x:Null}">
                     </xctk:PropertyGrid>
-                </StackPanel>
+                </StackPanel>-->
+                <DataGrid x:Name="PropertiesDataGrid" ItemsSource="{Binding Path=SelectedNode.Properties}"/>
             </ScrollViewer>
         </GroupBox>
     </Grid>

@@ -1,9 +1,9 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Linq;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Input;
 using MvvmDialogs;
 using OpenRA.ModMaker.Model;
-using OpenRA.ModMaker.Primitives;
 using OpenRA.ModMaker.UI.Dialogs.TextInput;
 using OpenRA.ModMaker.UI.ViewModel.Base;
 
@@ -12,7 +12,7 @@ namespace OpenRA.ModMaker.UI.ViewModel
 	public class TreeViewNode : BaseViewModel
 	{
 		protected Node node;
-		protected readonly IMediator context;
+		protected readonly IMediator mediator;
 		protected readonly INotifyPropertyChanged ownerViewModel;
 		protected readonly IDialogService dialogService;
 
@@ -21,29 +21,25 @@ namespace OpenRA.ModMaker.UI.ViewModel
 		public bool IsExpanded { get; set; }
 		public ICommand SelectCommand { get; set; }
 		public ObservableCollection<TreeViewNode> Children { get; set; }
-		public AttributeDictionary<string, object> Attributes { get; set; }
+		public ObservableCollection<TreeViewNodeProperty> Properties { get; set; }
 		public ObservableCollection<NodeAction> ContextActions { get; set; }
 
-		public TreeViewNode(Node node, IMediator context, INotifyPropertyChanged ownerViewModel, IDialogService dialogService)
+		public TreeViewNode(Node node, IMediator mediator, INotifyPropertyChanged ownerViewModel, IDialogService dialogService)
 		{
-			this.Attributes = new AttributeDictionary<string, object>();
 			this.Children = new ObservableCollection<TreeViewNode>();
 			this.SelectCommand = new RelayCommand<object>(OnNodeSelection, p => true);
 			this.node = node;
-			this.context = context;
+			this.mediator = mediator;
 			this.Name = node.Name;
 			this.ownerViewModel = ownerViewModel;
 			this.dialogService = dialogService;
 
-			if (node.Attributes != null)
+			this.Properties =  new ObservableCollection<TreeViewNodeProperty>(node.Attributes.Select(kvp => new TreeViewNodeProperty
 			{
-				foreach (var attrib in node.Attributes)
-				{
-					this.Attributes.Add(attrib.Key, attrib.Value);
-				}
-			}
-
-			this.Attributes.SyncTo(this.node.Attributes);
+				Name = kvp.Key,
+				Value = kvp.Value
+			}));
+			
 			this.ContextActions = GetContextActions();
 		}
 
@@ -67,11 +63,18 @@ namespace OpenRA.ModMaker.UI.ViewModel
 			bool? success = dialogService.ShowCustomDialog<TextInputDialog>(ownerViewModel, textInputData);
 			if (success == true)
 			{
-				Attributes.Add(textInputData.Text, string.Empty);
-				context.NotifyAttributeAdded(this);
+				Properties.Add(new TreeViewNodeProperty
+				{
+					Name = textInputData.Text,
+					Value = ""
+				});
+				mediator.NotifyAttributeAdded(this);
 			}
 		}
 
-		protected virtual void OnNodeSelection(object parameter) { }
+		protected virtual void OnNodeSelection(object parameter) 
+		{
+			this.mediator.NotifyNodeSelected((TreeViewNode)parameter);
+		}
 	}
 }

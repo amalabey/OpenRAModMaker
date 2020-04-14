@@ -101,12 +101,14 @@
     <Compile Include="ViewModel\ManifestTreeViewNode.cs" />
     <Compile Include="ViewModel\ModViewModel.cs" />
     <Compile Include="ViewModel\NodeAction.cs" />
+    <Compile Include="ViewModel\ObservableDictionary.cs" />
     <Compile Include="ViewModel\PackagesTreeViewNode.cs" />
     <Compile Include="ViewModel\RuleSetCollectionTreeViewNode.cs" />
     <Compile Include="ViewModel\RuleSetTreeViewNode.cs" />
     <Compile Include="ViewModel\TraitTreeViewNode.cs" />
     <Compile Include="ViewModel\TreeViewNode.cs" />
     <Compile Include="ViewModel\Mediator.cs" />
+    <Compile Include="ViewModel\TreeViewNodeProperty.cs" />
     <Page Include="Dialogs\TextInput\TextInputDialogWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

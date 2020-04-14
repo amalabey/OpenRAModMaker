@@ -12,16 +12,18 @@ namespace OpenRA.ModMaker.UI.ViewModel
 	{
 		private Mod mod;
 		private readonly IDialogService dialogService;
-		private readonly Mediator context;
+		private readonly Mediator mediator;
 
 		public ManifestTreeViewNode Manifest { get; set; }
+		public TreeViewNode SelectedNode { get; set; }
 		public ICommand OpenCommand { get; set; }
 
 		public ModViewModel(IDialogService dialogService, string workingDirectoryPath, string modsDirectoryPath, string modId)
 		{
 			this.OpenCommand = new RelayCommand<object>(OpenManifest, p => true);
 			this.dialogService = dialogService;
-			this.context = new Mediator();
+			this.mediator = new Mediator();
+			this.mediator.NodeSelected += OnNodeSelected;
 
 			LoadMod(workingDirectoryPath, modsDirectoryPath, modId);
 		}
@@ -29,14 +31,14 @@ namespace OpenRA.ModMaker.UI.ViewModel
 		public ModViewModel(IDialogService dialogService)
 		{
 			this.OpenCommand = new RelayCommand<object>(OpenManifest, p => true);
-			this.context = new Mediator();
+			this.mediator = new Mediator();
 			this.dialogService = dialogService;
 		}
 
 		private void LoadMod(string workingDirectoryPath, string modsDirectoryPath, string modId)
 		{
 			this.mod = new Mod(workingDirectoryPath, modsDirectoryPath, modId);
-			this.Manifest = new ManifestTreeViewNode(this.mod.Manifest, this.context, this, this.dialogService);
+			this.Manifest = new ManifestTreeViewNode(this.mod.Manifest, this.mediator, this, this.dialogService);
 		}
 
 		private void LoadMod(string manifestPath)
@@ -66,6 +68,11 @@ namespace OpenRA.ModMaker.UI.ViewModel
 			{
 				this.LoadMod(settings.FileName);
 			}
+		}
+
+		private void OnNodeSelected(TreeViewNode node)
+		{
+			this.SelectedNode = node;
 		}
 	}
 }
