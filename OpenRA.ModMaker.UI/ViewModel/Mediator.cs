@@ -1,8 +1,4 @@
-﻿using System.ComponentModel;
-using MvvmDialogs;
-using OpenRA.ModMaker.UI.Dialogs.TextInput;
-
-namespace OpenRA.ModMaker.UI.ViewModel
+﻿namespace OpenRA.ModMaker.UI.ViewModel
 {
 	public class Mediator : IMediator
 	{
