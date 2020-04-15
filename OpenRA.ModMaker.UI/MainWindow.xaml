@@ -76,9 +76,18 @@
                           VerticalGridLinesBrush="LightGray"
                           AutoGenerateColumns="False"
                           ItemsSource="{Binding Path=SelectedNode.Properties}" BorderBrush="{x:Null}">
+                    <DataGrid.Resources>
+                        <Style x:Key="NameColumnStyle" TargetType="{x:Type DataGridCell}">
+                            <Style.Setters>
+                                <Setter Property="Background" Value="LightCyan"/>
+                                <Setter Property="FontWeight" Value="DemiBold" />
+                            </Style.Setters>
+                        </Style>
+                    </DataGrid.Resources>
                     <DataGrid.Columns>
-                        <DataGridTextColumn Width="225" Header="Name" Binding="{Binding Name}" />
-                        <DataGridTextColumn Width="225" Header="Value" Binding="{Binding Value}" />
+                        <DataGridTextColumn Width="225" Header="Name" Binding="{Binding Name}" 
+                                            CellStyle="{StaticResource NameColumnStyle}" CanUserReorder="False" CanUserResize="False" />
+                        <DataGridTextColumn Width="225" Header="Value" Binding="{Binding Value}"  />
                     </DataGrid.Columns>
                 </DataGrid>
             </ScrollViewer>
