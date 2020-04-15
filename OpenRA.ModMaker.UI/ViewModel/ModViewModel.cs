@@ -52,8 +52,15 @@ namespace OpenRA.ModMaker.UI.ViewModel
 				.SelectMany(rset => rset.Children)
 				.FirstOrDefault(actor => actor.Name == nodeName);
 
-			ExpandToNode(targetActor);
-			this.SelectedNode = targetActor;
+			if(targetActor != null)
+			{
+				foreach (var topNode in this.Manifest.Children)
+				{
+					topNode.IsExpanded = false;
+				}
+				ExpandToNode(targetActor);
+				this.SelectedNode = targetActor;
+			}
 		}
 
 		private void ExpandToNode(TreeViewNode node)

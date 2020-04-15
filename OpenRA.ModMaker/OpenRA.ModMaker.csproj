@@ -55,6 +55,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IPathResolver.cs" />
     <Compile Include="Services\SimplePathResolver.cs" />
+    <Compile Include="TraitNames.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OpenRA\OpenRA.Game\OpenRA.Game.csproj">

@@ -14,6 +14,14 @@ namespace OpenRA.ModMaker.UI.ViewModel
 				foreach (var trait in node.Children)
 				{
 					this.Children.Add(new TraitTreeViewNode(this, (Trait)trait, context, ownerViewModel, dialogService));
+				
+					if(trait.Name == TraitNames.TooltipTraitName)
+					{
+						if(trait.Attributes != null && trait.Attributes.ContainsKey("Name"))
+						{
+							this.Name = $"{node.Name} : ({trait.Attributes["Name"]})";
+						}
+					}
 				}
 			}
 		}
