@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 using MvvmDialogs;
 using OpenRA.ModMaker.UI.Dialogs;
 using OpenRA.ModMaker.UI.ViewModel;
@@ -24,6 +25,14 @@ namespace OpenRA.ModMaker.UI
 			//var mod = new Mod(workingDirectoryPath, modsPath, "ra");
 			this.DataContext = new ModViewModel(dialogService, workingDirectoryPath, modsPath, "yr");
 			//this.DataContext = new ModViewModel(dialogService);
+		}
+
+		private void ModDefinitionTreeView_Expanded(object sender, RoutedEventArgs e)
+		{
+			if(e.OriginalSource != null)
+			{
+				(e.OriginalSource as TreeViewItem).BringIntoView();
+			}
 		}
 	}
 }

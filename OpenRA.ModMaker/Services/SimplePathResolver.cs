@@ -29,7 +29,7 @@ namespace OpenRA.ModMaker.Services
 			var token = tokenizedPath.Substring(0, tokenIndex);
 			var packageKey = this.manifest
 				.Children
-				.FirstOrDefault(x => x.Name == Constants.PackagesNodeName)
+				.FirstOrDefault(x => x.Name == NodeNames.PackagesNodeName)
 				.Attributes
 				.FirstOrDefault(kv => (string)kv.Value == token).Key;
 

@@ -13,6 +13,34 @@
         Height="1000" Width="1500"
         WindowStartupLocation="CenterScreen"
         >
+    <Window.Resources>
+        <Style x:Key="LinkButton"
+        TargetType="Button">
+            <Setter
+            Property="Template">
+                <Setter.Value>
+                    <ControlTemplate
+                    TargetType="Button">
+                        <TextBlock
+                        TextDecorations="Underline">
+                    <ContentPresenter /></TextBlock>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter
+            Property="Foreground"
+            Value="Blue" />
+            <Style.Triggers>
+                <Trigger
+                Property="IsMouseOver"
+                Value="true">
+                    <Setter
+                    Property="Foreground"
+                    Value="Red" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="8*"/>
@@ -38,6 +66,7 @@
         </Menu>
         <GroupBox Header="Manifest" VerticalAlignment="Stretch" Grid.Row="1" Grid.Column="0" Margin="5,5,5,5">
             <TreeView VerticalAlignment="Stretch" 
+                      TreeViewItem.Expanded="ModDefinitionTreeView_Expanded"
                   x:Name="ModDefinitionTreeView" ItemsSource="{Binding Path=Manifest.Children}" BorderBrush="{x:Null}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectedItemChanged">
@@ -64,6 +93,10 @@
                                     </ContextMenu>
                                 </TextBlock.ContextMenu>
                             </TextBlock>
+                            <Button Visibility="{Binding Linked}" 
+                                    Style="{StaticResource LinkButton}" 
+                                    Command="{Binding LinkCommand}"
+                                    Content="{Binding Value}" />
                         </StackPanel>
                     </HierarchicalDataTemplate>
                 </TreeView.ItemTemplate>

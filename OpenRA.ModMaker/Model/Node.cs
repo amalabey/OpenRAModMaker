@@ -8,6 +8,7 @@ namespace OpenRA.ModMaker.Model
 	{
 		public event PropertyChangedEventHandler PropertyChanged = (sender, e) => { };
 		private string name;
+		private string nodeValue;
 
 		public Node()
 		{
@@ -25,6 +26,19 @@ namespace OpenRA.ModMaker.Model
 			{
 				this.name = value;
 				PropertyChanged(this, new PropertyChangedEventArgs(name));
+			}
+		}
+
+		public string Value
+		{
+			get
+			{
+				return nodeValue;
+			}
+			set
+			{
+				this.nodeValue = value;
+				PropertyChanged(this, new PropertyChangedEventArgs(nodeValue));
 			}
 		}
 

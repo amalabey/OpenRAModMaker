@@ -11,7 +11,7 @@ namespace OpenRA.ModMaker.Model
 		{
 			this.yaml = yaml;
 			this.pathResolver = pathResolver;
-			this.Name = Constants.RulesNodeName;
+			this.Name = NodeNames.RulesNodeName;
 			if(yaml != null)
 			{
 				foreach (var node in yaml.Nodes)

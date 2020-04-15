@@ -9,7 +9,7 @@ namespace OpenRA.ModMaker.Model
 
 		public Packages(MiniYaml yaml):base()
 		{
-			Name = Constants.PackagesNodeName;
+			Name = NodeNames.PackagesNodeName;
 			this.yaml = yaml;
 			if (yaml != null)
 			{

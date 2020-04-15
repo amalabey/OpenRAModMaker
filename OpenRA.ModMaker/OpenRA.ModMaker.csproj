@@ -41,7 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Constants.cs" />
+    <Compile Include="NodeNames.cs" />
     <Compile Include="Extensions\MiniYamlExtensions.cs" />
     <Compile Include="Model\Actor.cs" />
     <Compile Include="Model\Manifest.cs" />

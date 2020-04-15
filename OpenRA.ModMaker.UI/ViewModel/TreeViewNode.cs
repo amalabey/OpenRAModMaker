@@ -16,22 +16,38 @@ namespace OpenRA.ModMaker.UI.ViewModel
 		protected readonly IMediator mediator;
 		protected readonly INotifyPropertyChanged ownerViewModel;
 		protected readonly IDialogService dialogService;
-
+		
+		public TreeViewNode Parent { get; set; }
 		public string Name { get; set; }
+		public string Value { get; set; }
+		public string Link { get; set; }
+		public bool Linked
+		{
+			get
+			{
+				return Link == null;
+			}
+		}
 		public virtual string Image { get; }
 		public bool IsExpanded { get; set; }
-		public ICommand SelectCommand { get; set; }
 		public ObservableCollection<TreeViewNode> Children { get; set; }
 		public ObservableCollection<TreeViewNodeProperty> Properties { get; set; }
 		public ObservableCollection<NodeAction> ContextActions { get; set; }
-
-		public TreeViewNode(Node node, IMediator mediator, INotifyPropertyChanged ownerViewModel, IDialogService dialogService)
+		
+		public ICommand SelectCommand { get; set; }
+		public ICommand LinkCommand { get; set; }
+		
+		public TreeViewNode(TreeViewNode parent, Node node, IMediator mediator, INotifyPropertyChanged ownerViewModel, IDialogService dialogService)
 		{
 			this.Children = new ObservableCollection<TreeViewNode>();
 			this.SelectCommand = new RelayCommand<object>(OnNodeSelection, p => true);
+			this.LinkCommand = new RelayCommand<object>(OnLinkClicked, p => true);
 			this.node = node;
 			this.mediator = mediator;
+			this.Parent = parent;
 			this.Name = node.Name;
+			this.Value = node.Value;
+			
 			this.ownerViewModel = ownerViewModel;
 			this.dialogService = dialogService;
 
@@ -39,6 +55,10 @@ namespace OpenRA.ModMaker.UI.ViewModel
 			this.Properties.CollectionChanged += OnPropertiesCollectionChanged;
 			
 			this.ContextActions = GetContextActions();
+		}
+
+		protected virtual void OnLinkClicked(object parameter)
+		{
 		}
 
 		protected virtual ObservableCollection<NodeAction> GetContextActions()

@@ -13,21 +13,21 @@ namespace OpenRA.ModMaker.UI.ViewModel
 		public ICommand SaveCommand { get; set; }
 		public AttributeDictionary<string, object> SelectedAttributeSet { get; set; }
 
-		public ManifestTreeViewNode(OpenRA.ModMaker.Model.Manifest node, Mediator context, INotifyPropertyChanged ownerViewModel, IDialogService dialogService) 
-			: base(node, context, ownerViewModel, dialogService)
+		public ManifestTreeViewNode(TreeViewNode parent, OpenRA.ModMaker.Model.Manifest node, Mediator context, INotifyPropertyChanged ownerViewModel, IDialogService dialogService) 
+			: base(parent, node, context, ownerViewModel, dialogService)
 		{
 			this.SaveCommand = new RelayCommand<object>(OnSave, p => true);
 
-			var packagesNode = node.Children.FirstOrDefault(x => x.Name == Constants.PackagesNodeName);
+			var packagesNode = node.Children.FirstOrDefault(x => x.Name == NodeNames.PackagesNodeName);
 			if(packagesNode != null)
 			{
-				this.Children.Add(new PackagesTreeViewNode((Packages)packagesNode, context, ownerViewModel, dialogService));
+				this.Children.Add(new PackagesTreeViewNode(this, (Packages)packagesNode, context, ownerViewModel, dialogService));
 			}
 
-			var rulesNode = node.Children.FirstOrDefault(x => x.Name == Constants.RulesNodeName);
+			var rulesNode = node.Children.FirstOrDefault(x => x.Name == NodeNames.RulesNodeName);
 			if (rulesNode != null)
 			{
-				this.Children.Add(new RuleSetCollectionTreeViewNode((RuleSetCollection)rulesNode, context, ownerViewModel, dialogService));
+				this.Children.Add(new RuleSetCollectionTreeViewNode(this, (RuleSetCollection)rulesNode, context, ownerViewModel, dialogService));
 			}
 		}
 

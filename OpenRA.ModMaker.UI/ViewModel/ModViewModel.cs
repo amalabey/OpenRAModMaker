@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System;
+using System.Linq;
+using System.IO;
 using System.Reflection;
 using System.Windows.Input;
 using MvvmDialogs;
@@ -24,6 +26,7 @@ namespace OpenRA.ModMaker.UI.ViewModel
 			this.dialogService = dialogService;
 			this.mediator = new Mediator();
 			this.mediator.NodeSelected += OnNodeSelected;
+			this.mediator.ActorNavigationRequested += OnActorNavigationRequested;
 
 			LoadMod(workingDirectoryPath, modsDirectoryPath, modId);
 		}
@@ -38,7 +41,28 @@ namespace OpenRA.ModMaker.UI.ViewModel
 		private void LoadMod(string workingDirectoryPath, string modsDirectoryPath, string modId)
 		{
 			this.mod = new Mod(workingDirectoryPath, modsDirectoryPath, modId);
-			this.Manifest = new ManifestTreeViewNode(this.mod.Manifest, this.mediator, this, this.dialogService);
+			this.Manifest = new ManifestTreeViewNode(null, this.mod.Manifest, this.mediator, this, this.dialogService);
+		}
+
+		private void OnActorNavigationRequested(string nodeName)
+		{
+			var targetActor = this.Manifest.Children
+				.FirstOrDefault(x => x.Name == NodeNames.RulesNodeName)
+				.Children
+				.SelectMany(rset => rset.Children)
+				.FirstOrDefault(actor => actor.Name == nodeName);
+
+			ExpandToNode(targetActor);
+			this.SelectedNode = targetActor;
+		}
+
+		private void ExpandToNode(TreeViewNode node)
+		{
+			if(node != null)
+			{
+				node.IsExpanded = true;
+				ExpandToNode(node.Parent);
+			}
 		}
 
 		private void LoadMod(string manifestPath)
