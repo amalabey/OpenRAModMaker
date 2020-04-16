@@ -14,124 +14,62 @@ namespace OpenRA.ModMaker.UI.ViewModel
 	public class ModViewModel : BaseViewModel
 	{
 		private Mod mod;
-		private readonly IDialogService dialogService;
-		private readonly Mediator mediator;
-		private KeyValuePair<string, IList<TreeViewNode>> foundNodes;
-		private int foundNodeIndex;
+		private IDialogService dialogService;
+		private Mediator mediator;
+		private string findKeyword;
 
+		public ITreeNavigator Navigator { get; set; }
 		public ManifestTreeViewNode Manifest { get; set; }
 		public TreeViewNode SelectedNode { get; set; }
-		public string FindKeyword { get; set; }
-		public ICommand OpenCommand { get; set; }
-		public ICommand FindNextCommand { get; set; }
-		public ICommand FindPreviousCommand { get; set; }
+		public string FindKeyword { 
+			get
+			{
+				return findKeyword; 
+			}
+			set
+			{
+				findKeyword = value;
+				this.FindNextCommand.RaiseCanExecuteChanged(this, null);
+				this.FindPreviousCommand.RaiseCanExecuteChanged(this, null);
+			}
+		}
+
+
+		public RelayCommand<object> OpenCommand { get; set; }
+		public RelayCommand<object> FindNextCommand { get; set; }
+		public RelayCommand<object> FindPreviousCommand { get; set; }
 
 		public ModViewModel(IDialogService dialogService, string workingDirectoryPath, string modsDirectoryPath, string modId)
 		{
-			this.OpenCommand = new RelayCommand<object>(OpenManifest, p => true);
-			this.FindNextCommand = new RelayCommand<object>(FindNext, p => true);
-			this.FindPreviousCommand = new RelayCommand<object>(FindPrevious, p => true);
-
-			this.dialogService = dialogService;
-			this.mediator = new Mediator();
-			this.mediator.NodeSelected += OnNodeSelected;
-			this.mediator.ActorNavigationRequested += OnActorNavigationRequested;
-
+			Initialize(dialogService);
 			LoadMod(workingDirectoryPath, modsDirectoryPath, modId);
 		}
 
 		public ModViewModel(IDialogService dialogService)
 		{
-			this.OpenCommand = new RelayCommand<object>(OpenManifest, p => true);
-			this.FindNextCommand = new RelayCommand<object>(FindNext, p => true);
-			this.FindPreviousCommand = new RelayCommand<object>(FindPrevious, p => true);
+			Initialize(dialogService);
+		}
 
-			this.mediator = new Mediator();
+		private void Initialize(IDialogService dialogService)
+		{
 			this.dialogService = dialogService;
+
+			this.OpenCommand = new RelayCommand<object>(OpenManifest, p => true);
+			this.FindNextCommand = new RelayCommand<object>((_) => this.Navigator.FindNext(this.FindKeyword), p => !String.IsNullOrEmpty(this.FindKeyword));
+			this.FindPreviousCommand = new RelayCommand<object>((_) => this.Navigator.FindPrevious(this.FindKeyword), p => !String.IsNullOrEmpty(this.FindKeyword));
+			
+			this.mediator = new Mediator();
+			this.mediator.NodeSelected += OnNodeSelected;
+			this.mediator.ActorNavigationRequested += OnActorNavigationRequested;
+
+			this.Navigator = new TreeNavigator(this.Manifest);
 		}
 		
-		private void FindNext(object parameter)
-		{
-			var keyword = this.FindKeyword;
-			if (String.IsNullOrEmpty(keyword))
-				return;
-			
-			if(this.foundNodes.Key != keyword)
-			{
-				FindNodes(keyword);
-				this.foundNodeIndex = 0;
-			}else if(foundNodeIndex < this.foundNodes.Value.Count - 1)
-			{
-				foundNodeIndex++;
-			}else if(foundNodeIndex == this.foundNodes.Value.Count - 1)
-			{
-				return;
-			}
-
-			if(this.foundNodes.Value.Count > 0)
-			{
-				var node = this.foundNodes.Value[this.foundNodeIndex];
-				ExpandToNode(node);
-				node.IsSelected = true;
-				this.SelectedNode = node;
-			}
-		}
-
-		private void FindPrevious(object parameter)
-		{
-			var keyword = this.FindKeyword;
-			if (String.IsNullOrEmpty(keyword))
-				return;
-
-			if (this.foundNodes.Key != keyword)
-			{
-				FindNodes(keyword);
-				this.foundNodeIndex = 0;
-			}
-			else if (foundNodeIndex > 0)
-			{
-				foundNodeIndex--;
-			}
-			else if (foundNodeIndex == 0)
-			{
-				return;
-			}
-
-			if (this.foundNodes.Value.Count > 0)
-			{
-				var node = this.foundNodes.Value[this.foundNodeIndex];
-				ExpandToNode(node);
-				node.IsSelected = true;
-				this.SelectedNode = node;
-			}
-		}
-
-		private void FindNodes(string keyword)
-		{
-			var foundNodes = new List<TreeViewNode>();
-			var nodeQueue = new Queue<TreeViewNode>();
-			nodeQueue.Enqueue(this.Manifest);
-			while (nodeQueue.Count > 0)
-			{
-				var node = nodeQueue.Dequeue();
-				foreach (TreeViewNode child in node.Children)
-				{
-					nodeQueue.Enqueue(child);
-				}
-				
-				if(node.Matches(keyword))
-				{
-					foundNodes.Add(node);
-				}
-			}
-
-			this.foundNodes = new KeyValuePair<string, IList<TreeViewNode>>(keyword, foundNodes);
-		}
-
 		private void LoadMod(string workingDirectoryPath, string modsDirectoryPath, string modId)
 		{
 			this.mod = new Mod(workingDirectoryPath, modsDirectoryPath, modId);
 			this.Manifest = new ManifestTreeViewNode(null, this.mod.Manifest, this.mediator, this, this.dialogService);
+			this.Navigator.Root = this.Manifest;
 		}
 
 		private void OnActorNavigationRequested(string nodeName)

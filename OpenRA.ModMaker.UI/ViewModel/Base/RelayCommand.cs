@@ -16,6 +16,11 @@ namespace OpenRA.ModMaker.UI.ViewModel.Base
 
 		public event EventHandler CanExecuteChanged = (sender, e) => { };
 
+		public void RaiseCanExecuteChanged(object sender, EventArgs e)
+		{
+			CanExecuteChanged(sender, e);
+		}
+
 		public bool CanExecute(object parameter) => canExecuteEvaluator((T)parameter);
 		public void Execute(object parameter) => action((T)parameter);
 	}
