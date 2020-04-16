@@ -70,15 +70,23 @@
             <ToolBar Background="{x:Null}" 
                      VerticalContentAlignment="Center"
                      HorizontalAlignment="Stretch" Margin="0,0,0,-0.333" Width="Auto">
-                <Button Command="{Binding OpenCommand}" ToolTip="Open Manifest." Height="30" Width="30" Margin="5,5,0,0">
+                <Button Command="{Binding OpenCommand}" ToolTip="Open Manifest." Height="25" Width="25" Margin="5,0,0,0">
                     <Image Source="/Images/open.png" />
                 </Button>
-                <Button Command="{Binding Path=Manifest.SaveCommand}" ToolTip="Save Manifest." Height="30" Width="30" Margin="5,5,0,0">
+                <Button Command="{Binding Path=Manifest.SaveCommand}" ToolTip="Save Manifest." Height="25" Width="25" Margin="5,0,5,0">
                     <Image Source="/Images/save.png" />
                 </Button>
-                <Separator Margin="5,5,0,0" />
-                <Label Margin="5,5,0,0">Filter:</Label>
-                <TextBox Margin="5,5,0,0" Width="150" />
+                <Separator Margin="5,0,5,0" />
+                <StackPanel Orientation="Horizontal">
+                    <Label Margin="5,0,0,0">Filter:</Label>
+                    <TextBox Margin="5,0,5,0" Width="150" />
+                    <Button Command="{Binding FindNextCommand}" ToolTip="Next" Height="20" Width="20" Margin="0,0,2,0" BorderBrush="{x:Null}" Background="{x:Null}">
+                        <Image Source="/Images/chev-left.png" />
+                    </Button>
+                    <Button Command="{Binding FindPreviousCommand}" ToolTip="Previous" Height="20" Width="20" Margin="2,0,5,0" Background="{x:Null}" BorderBrush="{x:Null}">
+                        <Image Source="/Images/chev-right.png" />
+                    </Button>
+                </StackPanel>
             </ToolBar>
         </ToolBarTray>
 
