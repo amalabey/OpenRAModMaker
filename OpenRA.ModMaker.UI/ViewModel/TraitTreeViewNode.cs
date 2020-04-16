@@ -6,8 +6,8 @@ namespace OpenRA.ModMaker.UI.ViewModel
 {
 	public class TraitTreeViewNode : TreeViewNode
 	{
-		public TraitTreeViewNode(TreeViewNode parent, Trait node, IMediator mediator, INotifyPropertyChanged ownerViewModel, IDialogService dialogService) 
-			: base(parent, node, mediator, ownerViewModel, dialogService)
+		public TraitTreeViewNode(TreeViewNode parent, Trait node, ITreeNavigator navigator, INotifyPropertyChanged ownerViewModel, IDialogService dialogService) 
+			: base(parent, node, navigator, ownerViewModel, dialogService)
 		{
 			if (!string.IsNullOrEmpty(node.Value))
 			{
@@ -17,7 +17,7 @@ namespace OpenRA.ModMaker.UI.ViewModel
 
 		protected override void OnLinkClicked(object parameter)
 		{
-			mediator.NotifyActorNavigationRequested(this.Value);
+			this.navigator.NavigateTo<ActorTreeViewNode>(this.Value);
 		}
 
 		public override string Image => "trait.png";

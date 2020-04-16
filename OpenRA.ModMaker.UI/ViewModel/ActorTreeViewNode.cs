@@ -6,14 +6,14 @@ namespace OpenRA.ModMaker.UI.ViewModel
 {
 	public class ActorTreeViewNode : TreeViewNode
 	{
-		public ActorTreeViewNode(TreeViewNode parent, OpenRA.ModMaker.Model.Actor node, IMediator context, INotifyPropertyChanged ownerViewModel, IDialogService dialogService) 
-			: base(parent, node, context, ownerViewModel, dialogService)
+		public ActorTreeViewNode(TreeViewNode parent, OpenRA.ModMaker.Model.Actor node, ITreeNavigator navigator, INotifyPropertyChanged ownerViewModel, IDialogService dialogService) 
+			: base(parent, node, navigator, ownerViewModel, dialogService)
 		{
 			if (node.Children != null)
 			{
 				foreach (var trait in node.Children)
 				{
-					this.Children.Add(new TraitTreeViewNode(this, (Trait)trait, context, ownerViewModel, dialogService));
+					this.Children.Add(new TraitTreeViewNode(this, (Trait)trait, navigator, ownerViewModel, dialogService));
 				
 					if(trait.Name == TraitNames.TooltipTraitName)
 					{

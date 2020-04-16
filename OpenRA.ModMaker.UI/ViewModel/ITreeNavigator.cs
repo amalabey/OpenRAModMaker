@@ -6,5 +6,6 @@
 		TreeViewNode SelectedNode { get; set; }
 		void FindNext(string keyword);
 		void FindPrevious(string keyword);
+		void NavigateTo<T>(string name);
 	}
 }

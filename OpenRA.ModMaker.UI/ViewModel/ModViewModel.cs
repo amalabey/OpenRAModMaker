@@ -13,12 +13,10 @@ namespace OpenRA.ModMaker.UI.ViewModel
 	{
 		private Mod mod;
 		private IDialogService dialogService;
-		private Mediator mediator;
 		private string findKeyword;
 
 		public ITreeNavigator Navigator { get; set; }
 		public ManifestTreeViewNode Manifest { get; set; }
-		public TreeViewNode SelectedNode { get; set; }
 		public string FindKeyword { 
 			get
 			{
@@ -31,7 +29,6 @@ namespace OpenRA.ModMaker.UI.ViewModel
 				this.FindPreviousCommand.RaiseCanExecuteChanged(this, null);
 			}
 		}
-
 
 		public RelayCommand<object> OpenCommand { get; set; }
 		public RelayCommand<object> FindNextCommand { get; set; }
@@ -56,38 +53,14 @@ namespace OpenRA.ModMaker.UI.ViewModel
 			this.FindNextCommand = new RelayCommand<object>((_) => this.Navigator.FindNext(this.FindKeyword), p => !String.IsNullOrEmpty(this.FindKeyword));
 			this.FindPreviousCommand = new RelayCommand<object>((_) => this.Navigator.FindPrevious(this.FindKeyword), p => !String.IsNullOrEmpty(this.FindKeyword));
 			
-			this.mediator = new Mediator();
-			this.mediator.NodeSelected += (node) => this.Navigator.SelectedNode = node;
-			this.mediator.ActorNavigationRequested += OnActorNavigationRequested;
-
 			this.Navigator = new TreeNavigator(this.Manifest);
 		}
 		
 		private void LoadMod(string workingDirectoryPath, string modsDirectoryPath, string modId)
 		{
 			this.mod = new Mod(workingDirectoryPath, modsDirectoryPath, modId);
-			this.Manifest = new ManifestTreeViewNode(null, this.mod.Manifest, this.mediator, this, this.dialogService);
+			this.Manifest = new ManifestTreeViewNode(null, this.mod.Manifest, this.Navigator, this, this.dialogService);
 			this.Navigator.Root = this.Manifest;
-		}
-
-		private void OnActorNavigationRequested(string nodeName)
-		{
-			var targetActor = this.Manifest.Children
-				.FirstOrDefault(x => x.Name == NodeNames.RulesNodeName)
-				.Children
-				.SelectMany(rset => rset.Children)
-				.FirstOrDefault(actor => actor.Name == nodeName);
-
-			if(targetActor != null)
-			{
-				foreach (var topNode in this.Manifest.Children)
-				{
-					topNode.IsExpanded = false;
-				}
-				ExpandToNode(targetActor);
-				targetActor.IsSelected = true;
-				this.SelectedNode = targetActor;
-			}
 		}
 
 		private void ExpandToNode(TreeViewNode node)

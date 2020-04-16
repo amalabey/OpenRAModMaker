@@ -44,16 +44,7 @@ namespace OpenRA.ModMaker.UI.ViewModel
 				this.SelectedNode = node;
 			}
 		}
-
-		private void ExpandToNode(TreeViewNode node)
-		{
-			if (node != null)
-			{
-				node.IsExpanded = true;
-				ExpandToNode(node.Parent);
-			}
-		}
-
+		
 		public void FindPrevious(string keyword)
 		{
 			if (String.IsNullOrEmpty(keyword))
@@ -102,6 +93,41 @@ namespace OpenRA.ModMaker.UI.ViewModel
 			}
 
 			this.foundNodes = new KeyValuePair<string, IList<TreeViewNode>>(keyword, foundNodes);
+		}
+
+		private void ExpandToNode(TreeViewNode node)
+		{
+			if (node != null)
+			{
+				node.IsExpanded = true;
+				ExpandToNode(node.Parent);
+			}
+		}
+
+		public void NavigateTo<T>(string name)
+		{
+			var targetNode = FindNode<T>(name);
+			if(targetNode != null)
+			{
+				ExpandToNode(targetNode);
+			}
+		}
+
+		private TreeViewNode FindNode<T>(string name)
+		{
+			var nodeQueue = new Queue<TreeViewNode>();
+			nodeQueue.Enqueue(this.Root);
+			while (nodeQueue.Count > 0)
+			{
+				var node = nodeQueue.Dequeue();
+				if (node.GetType() == typeof(T) && node.Name == name)
+					return node;
+				foreach (TreeViewNode child in node.Children)
+				{
+					nodeQueue.Enqueue(child);
+				}
+			}
+			return null;
 		}
 	}
 }

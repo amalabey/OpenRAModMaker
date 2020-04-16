@@ -12,8 +12,8 @@ namespace OpenRA.ModMaker.UI.ViewModel
 	{
 		public ICommand SaveCommand { get; set; }
 
-		public ManifestTreeViewNode(TreeViewNode parent, OpenRA.ModMaker.Model.Manifest node, Mediator context, INotifyPropertyChanged ownerViewModel, IDialogService dialogService) 
-			: base(parent, node, context, ownerViewModel, dialogService)
+		public ManifestTreeViewNode(TreeViewNode parent, OpenRA.ModMaker.Model.Manifest node, ITreeNavigator navigator, INotifyPropertyChanged ownerViewModel, IDialogService dialogService) 
+			: base(parent, node, navigator, ownerViewModel, dialogService)
 		{
 			this.Name = "";
 			this.SaveCommand = new RelayCommand<object>(OnSave, p => true);
@@ -21,13 +21,13 @@ namespace OpenRA.ModMaker.UI.ViewModel
 			var packagesNode = node.Children.FirstOrDefault(x => x.Name == NodeNames.PackagesNodeName);
 			if(packagesNode != null)
 			{
-				this.Children.Add(new PackagesTreeViewNode(this, (Packages)packagesNode, context, ownerViewModel, dialogService));
+				this.Children.Add(new PackagesTreeViewNode(this, (Packages)packagesNode, navigator, ownerViewModel, dialogService));
 			}
 
 			var rulesNode = node.Children.FirstOrDefault(x => x.Name == NodeNames.RulesNodeName);
 			if (rulesNode != null)
 			{
-				this.Children.Add(new RuleSetCollectionTreeViewNode(this, (RuleSetCollection)rulesNode, context, ownerViewModel, dialogService));
+				this.Children.Add(new RuleSetCollectionTreeViewNode(this, (RuleSetCollection)rulesNode, navigator, ownerViewModel, dialogService));
 			}
 		}
 

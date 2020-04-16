@@ -13,7 +13,7 @@ namespace OpenRA.ModMaker.UI.ViewModel
 	public class TreeViewNode : BaseViewModel
 	{
 		protected Node node;
-		protected readonly IMediator mediator;
+		protected readonly ITreeNavigator navigator;
 		protected readonly INotifyPropertyChanged ownerViewModel;
 		protected readonly IDialogService dialogService;
 		
@@ -38,13 +38,13 @@ namespace OpenRA.ModMaker.UI.ViewModel
 		public ICommand SelectCommand { get; set; }
 		public ICommand LinkCommand { get; set; }
 		
-		public TreeViewNode(TreeViewNode parent, Node node, IMediator mediator, INotifyPropertyChanged ownerViewModel, IDialogService dialogService)
+		public TreeViewNode(TreeViewNode parent, Node node, ITreeNavigator navigator, INotifyPropertyChanged ownerViewModel, IDialogService dialogService)
 		{
 			this.Children = new ObservableCollection<TreeViewNode>();
 			this.SelectCommand = new RelayCommand<object>(OnNodeSelection, p => true);
 			this.LinkCommand = new RelayCommand<object>(OnLinkClicked, p => true);
 			this.node = node;
-			this.mediator = mediator;
+			this.navigator = navigator;
 			this.Parent = parent;
 			this.Name = node.Name;
 			this.Value = node.Value;
@@ -88,13 +88,14 @@ namespace OpenRA.ModMaker.UI.ViewModel
 			if (success == true)
 			{
 				Properties.Add(new TreeViewNodeProperty(this.node, textInputData.Text, string.Empty));
-				mediator.NotifyAttributeAdded(this);
+				// #todo: why do we need this??
+				//mediator.NotifyAttributeAdded(this);
 			}
 		}
 
 		protected virtual void OnNodeSelection(object parameter) 
 		{
-			this.mediator.NotifyNodeSelected((TreeViewNode)parameter);
+			this.navigator.SelectedNode = (TreeViewNode)parameter;
 		}
 
 		protected virtual void OnPropertiesCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)

@@ -6,14 +6,14 @@ namespace OpenRA.ModMaker.UI.ViewModel
 {
 	public class RuleSetCollectionTreeViewNode : TreeViewNode
 	{
-		public RuleSetCollectionTreeViewNode(TreeViewNode parent, RuleSetCollection node, IMediator context, INotifyPropertyChanged ownerViewModel, IDialogService dialogService) 
-			: base(parent, node, context, ownerViewModel, dialogService)
+		public RuleSetCollectionTreeViewNode(TreeViewNode parent, RuleSetCollection node, ITreeNavigator navigator, INotifyPropertyChanged ownerViewModel, IDialogService dialogService) 
+			: base(parent, node, navigator, ownerViewModel, dialogService)
 		{
 			if (node.Children != null)
 			{
 				foreach (var ruleSet in node.Children)
 				{
-					this.Children.Add(new RuleSetTreeViewNode(this, (OpenRA.ModMaker.Model.RuleSet)ruleSet, context, ownerViewModel, dialogService));
+					this.Children.Add(new RuleSetTreeViewNode(this, (OpenRA.ModMaker.Model.RuleSet)ruleSet, navigator, ownerViewModel, dialogService));
 				}
 			}
 		}
