@@ -58,6 +58,11 @@ namespace OpenRA.ModMaker.UI.ViewModel
 			this.ContextActions = GetContextActions();
 		}
 
+		public virtual bool Matches(string keyword)
+		{
+			return Name.Contains(keyword) || (Value != null && Value.Contains(keyword));
+		}
+
 		protected virtual void OnLinkClicked(object parameter)
 		{
 		}

@@ -7,6 +7,7 @@ using MvvmDialogs;
 using MvvmDialogs.FrameworkDialogs.OpenFile;
 using OpenRA.ModMaker.Model;
 using OpenRA.ModMaker.UI.ViewModel.Base;
+using System.Collections.Generic;
 
 namespace OpenRA.ModMaker.UI.ViewModel
 {
@@ -15,9 +16,12 @@ namespace OpenRA.ModMaker.UI.ViewModel
 		private Mod mod;
 		private readonly IDialogService dialogService;
 		private readonly Mediator mediator;
+		private KeyValuePair<string, IList<TreeViewNode>> foundNodes;
+		private int foundNodeIndex;
 
 		public ManifestTreeViewNode Manifest { get; set; }
 		public TreeViewNode SelectedNode { get; set; }
+		public string FindKeyword { get; set; }
 		public ICommand OpenCommand { get; set; }
 		public ICommand FindNextCommand { get; set; }
 		public ICommand FindPreviousCommand { get; set; }
@@ -25,6 +29,9 @@ namespace OpenRA.ModMaker.UI.ViewModel
 		public ModViewModel(IDialogService dialogService, string workingDirectoryPath, string modsDirectoryPath, string modId)
 		{
 			this.OpenCommand = new RelayCommand<object>(OpenManifest, p => true);
+			this.FindNextCommand = new RelayCommand<object>(FindNext, p => true);
+			this.FindPreviousCommand = new RelayCommand<object>(FindPrevious, p => true);
+
 			this.dialogService = dialogService;
 			this.mediator = new Mediator();
 			this.mediator.NodeSelected += OnNodeSelected;
@@ -36,8 +43,89 @@ namespace OpenRA.ModMaker.UI.ViewModel
 		public ModViewModel(IDialogService dialogService)
 		{
 			this.OpenCommand = new RelayCommand<object>(OpenManifest, p => true);
+			this.FindNextCommand = new RelayCommand<object>(FindNext, p => true);
+			this.FindPreviousCommand = new RelayCommand<object>(FindPrevious, p => true);
+
 			this.mediator = new Mediator();
 			this.dialogService = dialogService;
+		}
+		
+		private void FindNext(object parameter)
+		{
+			var keyword = this.FindKeyword;
+			if (String.IsNullOrEmpty(keyword))
+				return;
+			
+			if(this.foundNodes.Key != keyword)
+			{
+				FindNodes(keyword);
+				this.foundNodeIndex = 0;
+			}else if(foundNodeIndex < this.foundNodes.Value.Count - 1)
+			{
+				foundNodeIndex++;
+			}else if(foundNodeIndex == this.foundNodes.Value.Count - 1)
+			{
+				return;
+			}
+
+			if(this.foundNodes.Value.Count > 0)
+			{
+				var node = this.foundNodes.Value[this.foundNodeIndex];
+				ExpandToNode(node);
+				node.IsSelected = true;
+				this.SelectedNode = node;
+			}
+		}
+
+		private void FindPrevious(object parameter)
+		{
+			var keyword = this.FindKeyword;
+			if (String.IsNullOrEmpty(keyword))
+				return;
+
+			if (this.foundNodes.Key != keyword)
+			{
+				FindNodes(keyword);
+				this.foundNodeIndex = 0;
+			}
+			else if (foundNodeIndex > 0)
+			{
+				foundNodeIndex--;
+			}
+			else if (foundNodeIndex == 0)
+			{
+				return;
+			}
+
+			if (this.foundNodes.Value.Count > 0)
+			{
+				var node = this.foundNodes.Value[this.foundNodeIndex];
+				ExpandToNode(node);
+				node.IsSelected = true;
+				this.SelectedNode = node;
+			}
+		}
+
+		private void FindNodes(string keyword)
+		{
+			var foundNodes = new List<TreeViewNode>();
+			var nodeQueue = new Queue<TreeViewNode>();
+			nodeQueue.Enqueue(this.Manifest);
+			while (nodeQueue.Count > 0)
+			{
+				var node = nodeQueue.Dequeue();
+				foreach (TreeViewNode child in node.Children)
+				{
+					nodeQueue.Enqueue(child);
+				}
+				
+				if(node.Matches(keyword))
+				{
+					foundNodes.Add(node);
+				}
+			}
+
+			this.foundNodes = new KeyValuePair<string, IList<TreeViewNode>>(keyword, foundNodes);
 		}
 
 		private void LoadMod(string workingDirectoryPath, string modsDirectoryPath, string modId)

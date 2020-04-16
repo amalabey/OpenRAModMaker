@@ -16,6 +16,7 @@ namespace OpenRA.ModMaker.UI.ViewModel
 		public ManifestTreeViewNode(TreeViewNode parent, OpenRA.ModMaker.Model.Manifest node, Mediator context, INotifyPropertyChanged ownerViewModel, IDialogService dialogService) 
 			: base(parent, node, context, ownerViewModel, dialogService)
 		{
+			this.Name = "";
 			this.SaveCommand = new RelayCommand<object>(OnSave, p => true);
 
 			var packagesNode = node.Children.FirstOrDefault(x => x.Name == NodeNames.PackagesNodeName);
