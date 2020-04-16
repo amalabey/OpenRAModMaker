@@ -19,6 +19,7 @@ namespace OpenRA.ModMaker.UI.ViewModel
 		public ManifestTreeViewNode Manifest { get; set; }
 		public TreeViewNode SelectedNode { get; set; }
 		public ICommand OpenCommand { get; set; }
+		public ICommand FindNodeCommand { get; set; }
 
 		public ModViewModel(IDialogService dialogService, string workingDirectoryPath, string modsDirectoryPath, string modId)
 		{
