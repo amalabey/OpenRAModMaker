@@ -59,6 +59,7 @@ namespace OpenRA.ModMaker.UI.ViewModel
 					topNode.IsExpanded = false;
 				}
 				ExpandToNode(targetActor);
+				targetActor.IsSelected = true;
 				this.SelectedNode = targetActor;
 			}
 		}

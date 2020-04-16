@@ -30,6 +30,7 @@ namespace OpenRA.ModMaker.UI.ViewModel
 		}
 		public virtual string Image { get; }
 		public bool IsExpanded { get; set; }
+		public bool IsSelected { get; set; }
 		public ObservableCollection<TreeViewNode> Children { get; set; }
 		public ObservableCollection<TreeViewNodeProperty> Properties { get; set; }
 		public ObservableCollection<NodeAction> ContextActions { get; set; }
