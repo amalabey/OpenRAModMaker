@@ -13,12 +13,14 @@
         SizeToContent="WidthAndHeight"
         ResizeMode="NoResize"
         d:DataContext="{d:DesignInstance {x:Type local:TextInputDialogViewModel}}"
+        PreviewKeyDown="Window_PreviewKeyDown"
         >
         <StackPanel
+            FocusManager.FocusedElement="{Binding ElementName=InputTextBox}"
             Orientation="Horizontal"
             Margin="5,0,5,5"
             HorizontalAlignment="Right">
-            <TextBox Width="150" Margin="0,0,5,0" TextAlignment="Left" VerticalContentAlignment="Center"
+            <TextBox x:Name="InputTextBox" Width="150" Margin="0,0,5,0" TextAlignment="Left" VerticalContentAlignment="Center"
                      Text="{Binding Text, UpdateSourceTrigger=PropertyChanged}" />
         <Button
                 Command="{Binding OkCommand}"
