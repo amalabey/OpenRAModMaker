@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using OpenRA.ModMaker.UI.ViewModel.Base;
 
 namespace OpenRA.ModMaker.UI.ViewModel
 {
-	public class TreeNavigator : ITreeNavigator
+	public class TreeNavigator : BaseViewModel, ITreeNavigator
 	{
 		private KeyValuePair<string, IList<TreeViewNode>> foundNodes;
 		private int foundNodeIndex;

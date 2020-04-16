@@ -2,12 +2,10 @@
 using System.Linq;
 using System.IO;
 using System.Reflection;
-using System.Windows.Input;
 using MvvmDialogs;
 using MvvmDialogs.FrameworkDialogs.OpenFile;
 using OpenRA.ModMaker.Model;
 using OpenRA.ModMaker.UI.ViewModel.Base;
-using System.Collections.Generic;
 
 namespace OpenRA.ModMaker.UI.ViewModel
 {
@@ -59,7 +57,7 @@ namespace OpenRA.ModMaker.UI.ViewModel
 			this.FindPreviousCommand = new RelayCommand<object>((_) => this.Navigator.FindPrevious(this.FindKeyword), p => !String.IsNullOrEmpty(this.FindKeyword));
 			
 			this.mediator = new Mediator();
-			this.mediator.NodeSelected += OnNodeSelected;
+			this.mediator.NodeSelected += (node) => this.Navigator.SelectedNode = node;
 			this.mediator.ActorNavigationRequested += OnActorNavigationRequested;
 
 			this.Navigator = new TreeNavigator(this.Manifest);
@@ -128,11 +126,6 @@ namespace OpenRA.ModMaker.UI.ViewModel
 			{
 				this.LoadMod(settings.FileName);
 			}
-		}
-
-		private void OnNodeSelected(TreeViewNode node)
-		{
-			this.SelectedNode = node;
 		}
 	}
 }

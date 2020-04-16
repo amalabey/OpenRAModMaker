@@ -11,7 +11,6 @@ namespace OpenRA.ModMaker.UI.ViewModel
 	public class ManifestTreeViewNode : TreeViewNode
 	{
 		public ICommand SaveCommand { get; set; }
-		public AttributeDictionary<string, object> SelectedAttributeSet { get; set; }
 
 		public ManifestTreeViewNode(TreeViewNode parent, OpenRA.ModMaker.Model.Manifest node, Mediator context, INotifyPropertyChanged ownerViewModel, IDialogService dialogService) 
 			: base(parent, node, context, ownerViewModel, dialogService)

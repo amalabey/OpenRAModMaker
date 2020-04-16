@@ -138,7 +138,7 @@
                           HorizontalGridLinesBrush="LightGray"
                           VerticalGridLinesBrush="LightGray"
                           AutoGenerateColumns="False"
-                          ItemsSource="{Binding Path=SelectedNode.Properties}" BorderBrush="{x:Null}">
+                          ItemsSource="{Binding Path=Navigator.SelectedNode.Properties}" BorderBrush="{x:Null}">
                     <DataGrid.Resources>
                         <Style x:Key="NameColumnStyle" TargetType="{x:Type DataGridCell}">
                             <Style.Setters>
