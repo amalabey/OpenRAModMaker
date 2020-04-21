@@ -41,6 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exceptions\ModLoaderException.cs" />
+    <Compile Include="Model\SpriteImage.cs" />
+    <Compile Include="Model\SpriteSequence.cs" />
     <Compile Include="NodeNames.cs" />
     <Compile Include="Extensions\MiniYamlExtensions.cs" />
     <Compile Include="Model\Actor.cs" />
@@ -53,7 +56,9 @@
     <Compile Include="Model\Trait.cs" />
     <Compile Include="Primitives\AttributeDictionary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\IContentProvider.cs" />
     <Compile Include="Services\IPathResolver.cs" />
+    <Compile Include="Services\ModContentProvider.cs" />
     <Compile Include="Services\SimplePathResolver.cs" />
     <Compile Include="TraitNames.cs" />
   </ItemGroup>
