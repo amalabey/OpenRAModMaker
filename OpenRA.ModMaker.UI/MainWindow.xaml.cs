@@ -15,16 +15,18 @@ namespace OpenRA.ModMaker.UI
 		{
 			InitializeComponent();
 
+			var colorPalettePath = "C:\\work\\games\\OpenRAModMaker\\OpenRA\\mods\\cnc\\bits\\snow.pal";
+			var dialogService = new DialogService(frameworkDialogFactory: new CustomFrameworkDialogFactory());
+
 			//var modsPath = "C:\\work\\games\\OpenRAModMaker\\OpenRA\\mods";
 			//var workingDirectoryPath = "C:\\work\\games\\OpenRAModMaker\\OpenRA";
+			//var modId = "ra";
 
 			var modsPath = "C:\\work\\games\\Yuris-Revenge\\mods";
 			var workingDirectoryPath = "C:\\work\\games\\Yuris-Revenge";
-			var dialogService = new DialogService(frameworkDialogFactory: new CustomFrameworkDialogFactory());
+			var modId = "yr";
 
-			//var mod = new Mod(workingDirectoryPath, modsPath, "ra");
-			this.DataContext = new ModViewModel(dialogService, workingDirectoryPath, modsPath, "yr");
-			//this.DataContext = new ModViewModel(dialogService);
+			this.DataContext = new ModViewModel(dialogService, workingDirectoryPath, modsPath, modId, colorPalettePath);
 		}
 
 		private void ModDefinitionTreeView_Expanded(object sender, RoutedEventArgs e)

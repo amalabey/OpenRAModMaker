@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenRA.Mods.Common", "OpenR
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenRA.ModMaker.Tests", "OpenRA.ModMaker.Tests\OpenRA.ModMaker.Tests.csproj", "{8470C554-5C97-400B-A5FD-08563C9A8DD4}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenRA.Mods.Cnc", "OpenRA\OpenRA.Mods.Cnc\OpenRA.Mods.Cnc.csproj", "{0788BEC4-8146-4E09-B3A9-75C87DA87D65}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -52,6 +54,12 @@ Global
 		{8470C554-5C97-400B-A5FD-08563C9A8DD4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8470C554-5C97-400B-A5FD-08563C9A8DD4}.Release-x86|Any CPU.ActiveCfg = Release|Any CPU
 		{8470C554-5C97-400B-A5FD-08563C9A8DD4}.Release-x86|Any CPU.Build.0 = Release|Any CPU
+		{0788BEC4-8146-4E09-B3A9-75C87DA87D65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0788BEC4-8146-4E09-B3A9-75C87DA87D65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0788BEC4-8146-4E09-B3A9-75C87DA87D65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0788BEC4-8146-4E09-B3A9-75C87DA87D65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0788BEC4-8146-4E09-B3A9-75C87DA87D65}.Release-x86|Any CPU.ActiveCfg = Release|Any CPU
+		{0788BEC4-8146-4E09-B3A9-75C87DA87D65}.Release-x86|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -59,6 +67,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{7B2FE6A8-5429-498F-8441-A27978DEB406} = {5C0516C2-61C7-4DE6-A262-34ED427D7623}
 		{334F2CB9-C438-49EE-AEBC-CF67B8D0C26C} = {5C0516C2-61C7-4DE6-A262-34ED427D7623}
+		{0788BEC4-8146-4E09-B3A9-75C87DA87D65} = {5C0516C2-61C7-4DE6-A262-34ED427D7623}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BE1FD231-51EB-4CF1-A438-1C4BA4A7418B}

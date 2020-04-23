@@ -7,6 +7,8 @@ using OpenRA.ModMaker.Model;
 using OpenRA.ModMaker.UI.Dialogs.TextInput;
 using OpenRA.ModMaker.UI.ViewModel.Base;
 using System.Collections.Specialized;
+using OpenRA.ModMaker.Services;
+using System.Drawing;
 
 namespace OpenRA.ModMaker.UI.ViewModel
 {
@@ -16,7 +18,8 @@ namespace OpenRA.ModMaker.UI.ViewModel
 		protected readonly ITreeNavigator navigator;
 		protected readonly INotifyPropertyChanged ownerViewModel;
 		protected readonly IDialogService dialogService;
-		
+		protected readonly IContentProvider contentProvider;
+
 		public TreeViewNode Parent { get; set; }
 		public string Name { get; set; }
 		public string Value { get; set; }
@@ -28,17 +31,20 @@ namespace OpenRA.ModMaker.UI.ViewModel
 				return Link == null;
 			}
 		}
-		public virtual string Image { get; }
+		public virtual string IconUrl { get; }
+		public virtual ImageViewModel Icon { get; }
+		public int ImageWidth { get; set; }
+		public int ImageHeight { get; set; }
 		public bool IsExpanded { get; set; }
 		public bool IsSelected { get; set; }
 		public ObservableCollection<TreeViewNode> Children { get; set; }
 		public ObservableCollection<TreeViewNodeProperty> Properties { get; set; }
 		public ObservableCollection<NodeAction> ContextActions { get; set; }
-		
+
 		public ICommand SelectCommand { get; set; }
 		public ICommand LinkCommand { get; set; }
-		
-		public TreeViewNode(TreeViewNode parent, Node node, ITreeNavigator navigator, INotifyPropertyChanged ownerViewModel, IDialogService dialogService)
+
+		public TreeViewNode(TreeViewNode parent, Node node, ITreeNavigator navigator, INotifyPropertyChanged ownerViewModel, IDialogService dialogService, IContentProvider contentProvider)
 		{
 			this.Children = new ObservableCollection<TreeViewNode>();
 			this.SelectCommand = new RelayCommand<object>(OnNodeSelection, p => true);
@@ -48,13 +54,14 @@ namespace OpenRA.ModMaker.UI.ViewModel
 			this.Parent = parent;
 			this.Name = node.Name;
 			this.Value = node.Value;
-			
+
 			this.ownerViewModel = ownerViewModel;
 			this.dialogService = dialogService;
+			this.contentProvider = contentProvider;
 
 			this.Properties = new ObservableCollection<TreeViewNodeProperty>(node.Attributes.Select(kvp => new TreeViewNodeProperty(this.node, kvp.Key, kvp.Value)));
 			this.Properties.CollectionChanged += OnPropertiesCollectionChanged;
-			
+
 			this.ContextActions = GetContextActions();
 		}
 
@@ -93,27 +100,27 @@ namespace OpenRA.ModMaker.UI.ViewModel
 			}
 		}
 
-		protected virtual void OnNodeSelection(object parameter) 
+		protected virtual void OnNodeSelection(object parameter)
 		{
 			this.navigator.SelectedNode = (TreeViewNode)parameter;
 		}
 
 		protected virtual void OnPropertiesCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
-			if(e.NewItems != null)
+			if (e.NewItems != null)
 			{
 				foreach (TreeViewNodeProperty newItem in e.NewItems)
 				{
-					if(!this.node.Attributes.ContainsKey(newItem.Name))
+					if (!this.node.Attributes.ContainsKey(newItem.Name))
 						this.node.Attributes.Add(newItem.Name, newItem.Value);
 				}
 			}
 
-			if(e.OldItems != null)
+			if (e.OldItems != null)
 			{
 				foreach (TreeViewNodeProperty removedItem in e.OldItems)
 				{
-					if(this.node.Attributes.ContainsKey(removedItem.Name))
+					if (this.node.Attributes.ContainsKey(removedItem.Name))
 						this.node.Attributes.Remove(removedItem.Name);
 				}
 			}

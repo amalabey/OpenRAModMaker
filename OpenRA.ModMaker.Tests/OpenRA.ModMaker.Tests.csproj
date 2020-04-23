@@ -29,6 +29,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -37,6 +38,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -47,6 +49,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="UnitTest1.cs" />
@@ -59,6 +62,18 @@
     <ProjectReference Include="..\OpenRA.ModMaker\OpenRA.ModMaker.csproj">
       <Project>{537D0F9A-7BB8-44F4-B586-AAB3CAB22154}</Project>
       <Name>OpenRA.ModMaker</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenRA\OpenRA.Game\OpenRA.Game.csproj">
+      <Project>{7b2fe6a8-5429-498f-8441-a27978deb406}</Project>
+      <Name>OpenRA.Game</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenRA\OpenRA.Mods.Cnc\OpenRA.Mods.Cnc.csproj">
+      <Project>{0788bec4-8146-4e09-b3a9-75c87da87d65}</Project>
+      <Name>OpenRA.Mods.Cnc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenRA\OpenRA.Mods.Common\OpenRA.Mods.Common.csproj">
+      <Project>{334f2cb9-c438-49ee-aebc-cf67b8d0c26c}</Project>
+      <Name>OpenRA.Mods.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

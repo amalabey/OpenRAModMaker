@@ -23,10 +23,11 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\..\Yuris-Revenge\engine\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -36,6 +37,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -49,6 +51,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -93,9 +96,12 @@
       <DependentUpon>TextInputDialogWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ValueConverters\NodeToImageConverter.cs" />
+    <Compile Include="ValueConverters\NotNullToVisibleConverter.cs" />
+    <Compile Include="ValueConverters\NullToVisibleConverter.cs" />
     <Compile Include="ViewModel\ActorTreeViewNode.cs" />
     <Compile Include="ViewModel\Base\BaseViewModel.cs" />
     <Compile Include="ViewModel\Base\RelayCommand.cs" />
+    <Compile Include="ViewModel\ImageViewModel.cs" />
     <Compile Include="ViewModel\ITreeNavigator.cs" />
     <Compile Include="ViewModel\ManifestTreeViewNode.cs" />
     <Compile Include="ViewModel\ModViewModel.cs" />
@@ -160,6 +166,7 @@
     <ProjectReference Include="..\OpenRA\OpenRA.Game\OpenRA.Game.csproj">
       <Project>{7b2fe6a8-5429-498f-8441-a27978deb406}</Project>
       <Name>OpenRA.Game</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

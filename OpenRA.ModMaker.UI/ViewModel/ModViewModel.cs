@@ -6,6 +6,7 @@ using MvvmDialogs;
 using MvvmDialogs.FrameworkDialogs.OpenFile;
 using OpenRA.ModMaker.Model;
 using OpenRA.ModMaker.UI.ViewModel.Base;
+using OpenRA.ModMaker.Services;
 
 namespace OpenRA.ModMaker.UI.ViewModel
 {
@@ -14,6 +15,7 @@ namespace OpenRA.ModMaker.UI.ViewModel
 		private Mod mod;
 		private IDialogService dialogService;
 		private string findKeyword;
+		private string colorPalettePath;
 
 		public ITreeNavigator Navigator { get; set; }
 		public ManifestTreeViewNode Manifest { get; set; }
@@ -34,10 +36,10 @@ namespace OpenRA.ModMaker.UI.ViewModel
 		public RelayCommand<object> FindNextCommand { get; set; }
 		public RelayCommand<object> FindPreviousCommand { get; set; }
 
-		public ModViewModel(IDialogService dialogService, string workingDirectoryPath, string modsDirectoryPath, string modId)
+		public ModViewModel(IDialogService dialogService, string workingDirectoryPath, string modsDirectoryPath, string modId, string colorPalettePath)
 		{
 			Initialize(dialogService);
-			LoadMod(workingDirectoryPath, modsDirectoryPath, modId);
+			LoadMod(workingDirectoryPath, modsDirectoryPath, modId, colorPalettePath);
 		}
 
 		public ModViewModel(IDialogService dialogService)
@@ -56,10 +58,12 @@ namespace OpenRA.ModMaker.UI.ViewModel
 			this.Navigator = new TreeNavigator(this.Manifest);
 		}
 		
-		private void LoadMod(string workingDirectoryPath, string modsDirectoryPath, string modId)
+		private void LoadMod(string workingDirectoryPath, string modsDirectoryPath, string modId, string colorPalettePath)
 		{
+			this.colorPalettePath = colorPalettePath;
 			this.mod = new Mod(workingDirectoryPath, modsDirectoryPath, modId);
-			this.Manifest = new ManifestTreeViewNode(null, this.mod.Manifest, this.Navigator, this, this.dialogService);
+			var contentProvider = new ModContentProvider(modsDirectoryPath, workingDirectoryPath, modId, colorPalettePath);
+			this.Manifest = new ManifestTreeViewNode(null, this.mod.Manifest, this.Navigator, this, this.dialogService, contentProvider);
 			this.Navigator.Root = this.Manifest;
 		}
 
@@ -79,7 +83,7 @@ namespace OpenRA.ModMaker.UI.ViewModel
 			var modsDirectoryPath = Path.GetDirectoryName(modDirectoryPath);
 			var workingDirectoryPath = Path.GetDirectoryName(modsDirectoryPath);
 
-			this.LoadMod(workingDirectoryPath, modsDirectoryPath, modId);
+			this.LoadMod(workingDirectoryPath, modsDirectoryPath, modId, this.colorPalettePath);
 		}
 
 		private void OpenManifest(object parameter)

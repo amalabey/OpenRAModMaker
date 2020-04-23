@@ -14,6 +14,7 @@ namespace OpenRA.ModMaker.Services
 		private readonly string modId;
 		private readonly string palettePath;
 		private ModData modData;
+		private IPalette palette;
 
 		public ModContentProvider(string modsDirectoryPath, string workingDirectoryPath, string modId, string palettePath)
 		{
@@ -27,8 +28,12 @@ namespace OpenRA.ModMaker.Services
 
 		private void Initialize()
 		{
+			var tempPath = Path.GetTempPath();
+			Log.AddChannel("debug", $"{tempPath}\\openra.log");
+			Log.AddChannel("perf", $"{tempPath}\\openra-perf.log");
+
 			Environment.CurrentDirectory = workingDirectoryPath;
-			var palette = new ImmutablePalette(palettePath, new int[0]);
+			palette = new ImmutablePalette(palettePath, new int[0]);
 			Game.Settings = new Settings(Platform.ResolvePath(Path.Combine(Platform.SupportDirPrefix, "settings.yaml")), new Arguments { });
 
 			var mods = new InstalledMods(new string[] { modsDirectoryPath }, new string[] { modId });
@@ -36,7 +41,7 @@ namespace OpenRA.ModMaker.Services
 			modData = new ModData(mod, mods, true);
 		}
 
-		public SpriteSequence GetSprites(string tileSet, string actorName, string sequenceName)
+		public SpriteSequence GetSpriteSequence(string tileSet, string actorName, string sequenceName)
 		{
 			if (modData == null)
 				throw new ModLoaderException("ModData is not loaded");
@@ -50,15 +55,15 @@ namespace OpenRA.ModMaker.Services
 			for (int i = 0; i < sequence.Length; i++)
 			{
 				var sprite = sequence.GetSprite(i);
-				spriteImages[i] = new SpriteImage(sprite.Bounds.Width, sprite.Bounds.Height, new Lazy<byte[]>(() => GetImageData(sprite)));
+				spriteImages[i] = new SpriteImage(sprite.Bounds.Width, sprite.Bounds.Height, new Lazy<int[]>(() => GetImageData(sprite, palette)));
 			}
 
 			return new SpriteSequence(actorName, sequenceName, spriteImages);
 		}
 
-		private byte[] GetImageData(Sprite sprite)
+		private int[] GetImageData(Sprite sprite, IPalette palette)
 		{
-			byte[] destData = new byte[sprite.Bounds.Width * sprite.Bounds.Height];
+			int[] destData = new int[sprite.Bounds.Width * sprite.Bounds.Height];
 			byte[] src = sprite.Sheet.GetData();
 			var width = sprite.Bounds.Width;
 			var height = sprite.Bounds.Height;
@@ -75,7 +80,7 @@ namespace OpenRA.ModMaker.Services
 				{
 					for (var i = 0; i < width; i++)
 					{
-						destData[k++] = src[(y + j) * destStride + x + i];
+						destData[k++] = Palette.GetColor(palette, src[(y + j) * destStride + x + i]).ToArgb();
 					}
 				}
 			}
@@ -90,7 +95,7 @@ namespace OpenRA.ModMaker.Services
 				{
 					for (var i = 0; i < width; i++)
 					{
-						destData[destOffset++] = src[srcOffset];
+						destData[destOffset++] = Palette.GetColor(palette, src[srcOffset]).ToArgb();
 						srcOffset += 4;
 					}
 

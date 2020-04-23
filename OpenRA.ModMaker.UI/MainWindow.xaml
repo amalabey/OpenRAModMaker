@@ -92,7 +92,7 @@
             </ToolBar>
         </ToolBarTray>
 
-        <GroupBox Header="Manifest" VerticalAlignment="Stretch" Grid.Row="2" Grid.Column="0" Margin="5,5,5,5">
+        <GroupBox Header="Manifest" VerticalAlignment="Stretch" Grid.Row="2" Grid.Column="0" Margin="10,10,10,10">
             <TreeView VerticalAlignment="Stretch" 
                       TreeViewItem.Expanded="ModDefinitionTreeView_Expanded"
                   x:Name="ModDefinitionTreeView" ItemsSource="{Binding Path=Manifest.Children}" BorderBrush="{x:Null}">
@@ -110,7 +110,8 @@
                 <TreeView.ItemTemplate>
                     <HierarchicalDataTemplate ItemsSource="{Binding Children}">
                         <StackPanel Orientation="Horizontal">
-                            <Image Width="20" Margin="3" Source="{Binding Image, Converter={x:Static local:NodeToImageConverter.Instance}}" />
+                            <Image Width="20" Margin="3" Visibility="{Binding Icon, Converter={x:Static local:NotNullToVisibilityConverter.Instance}}" Source="{Binding Path=Icon.ImageSource}" />
+                            <Image Width="20" Margin="3" Visibility="{Binding Icon, Converter={x:Static local:NullToVisibilityConverter.Instance}}" Source="{Binding IconUrl, Converter={x:Static local:NodeToImageConverter.Instance}}" />
                             <TextBlock VerticalAlignment="Center" Text="{Binding Name}">
                                 <TextBlock.ContextMenu>
                                     <ContextMenu ItemsSource="{Binding Path=ContextActions}">
@@ -132,7 +133,7 @@
             </TreeView>
         </GroupBox>
 
-        <GroupBox Header="Properties" Grid.Row="2" Grid.Column="1" Margin="0,5,5,5">
+        <GroupBox Header="Properties" Grid.Row="2" Grid.Column="1" Margin="0,10,10,10">
             <ScrollViewer  VerticalScrollBarVisibility="Auto">
                 <DataGrid x:Name="PropertiesDataGrid" 
                           HorizontalGridLinesBrush="LightGray"

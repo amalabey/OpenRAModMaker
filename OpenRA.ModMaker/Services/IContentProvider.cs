@@ -4,6 +4,6 @@ namespace OpenRA.ModMaker.Services
 {
 	public interface IContentProvider
 	{
-		SpriteSequence GetSprites(string tileSet, string actorName, string sequenceName);
+		SpriteSequence GetSpriteSequence(string tileSet, string actorName, string sequenceName);
 	}
 }
