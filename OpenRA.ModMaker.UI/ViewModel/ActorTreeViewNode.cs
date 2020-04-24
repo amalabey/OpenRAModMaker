@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Linq;
 using MvvmDialogs;
 using OpenRA.ModMaker.Model;
 using OpenRA.ModMaker.Services;
@@ -48,7 +49,7 @@ namespace OpenRA.ModMaker.UI.ViewModel
 		{
 			try
 			{
-				var sequence = contentProvider.GetSpriteSequence(DefaultTileSetName, this.node.Name, DefaultSequenceName);
+				var sequence = contentProvider.GetSpriteSequence(DefaultTileSetName, this.node.Name, (x) => x.FirstOrDefault(y => y == DefaultSequenceName) ?? x.FirstOrDefault());
 				if (sequence != null && sequence.Sprites != null && sequence.Sprites.Length > 0)
 				{
 					var spriteImage = sequence.Sprites[0];

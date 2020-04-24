@@ -110,7 +110,7 @@
                 <TreeView.ItemTemplate>
                     <HierarchicalDataTemplate ItemsSource="{Binding Children}">
                         <StackPanel Orientation="Horizontal">
-                            <Image Width="20" Margin="3" Visibility="{Binding Icon, Converter={x:Static local:NotNullToVisibilityConverter.Instance}}" Source="{Binding Path=Icon.ImageSource}" />
+                            <Image MaxHeight="20" MaxWidth="20" Margin="3" Visibility="{Binding Icon, Converter={x:Static local:NotNullToVisibilityConverter.Instance}}" Source="{Binding Path=Icon.ImageSource}" />
                             <Image Width="20" Margin="3" Visibility="{Binding Icon, Converter={x:Static local:NullToVisibilityConverter.Instance}}" Source="{Binding IconUrl, Converter={x:Static local:NodeToImageConverter.Instance}}" />
                             <TextBlock VerticalAlignment="Center" Text="{Binding Name}">
                                 <TextBlock.ContextMenu>
@@ -135,25 +135,28 @@
 
         <GroupBox Header="Properties" Grid.Row="2" Grid.Column="1" Margin="0,10,10,10">
             <ScrollViewer  VerticalScrollBarVisibility="Auto">
-                <DataGrid x:Name="PropertiesDataGrid" 
+                <StackPanel Orientation="Vertical">
+                    <Image MaxHeight="300" MaxWidth="300" Margin="3" Visibility="{Binding Path=Navigator.SelectedNode.Icon, Converter={x:Static local:NotNullToVisibilityConverter.Instance}}" Source="{Binding Path=Navigator.SelectedNode.Icon.ImageSource}" />
+                    <DataGrid x:Name="PropertiesDataGrid" 
                           HorizontalGridLinesBrush="LightGray"
                           VerticalGridLinesBrush="LightGray"
                           AutoGenerateColumns="False"
                           ItemsSource="{Binding Path=Navigator.SelectedNode.Properties}" BorderBrush="{x:Null}">
-                    <DataGrid.Resources>
-                        <Style x:Key="NameColumnStyle" TargetType="{x:Type DataGridCell}">
-                            <Style.Setters>
-                                <Setter Property="Background" Value="LightCyan"/>
-                                <Setter Property="FontWeight" Value="DemiBold" />
-                            </Style.Setters>
-                        </Style>
-                    </DataGrid.Resources>
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Width="225" Header="Name" Binding="{Binding Name}" 
+                        <DataGrid.Resources>
+                            <Style x:Key="NameColumnStyle" TargetType="{x:Type DataGridCell}">
+                                <Style.Setters>
+                                    <Setter Property="Background" Value="LightCyan"/>
+                                    <Setter Property="FontWeight" Value="DemiBold" />
+                                </Style.Setters>
+                            </Style>
+                        </DataGrid.Resources>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Width="225" Header="Name" Binding="{Binding Name}" 
                                             CellStyle="{StaticResource NameColumnStyle}" CanUserReorder="False" CanUserResize="False" />
-                        <DataGridTextColumn Width="225" Header="Value" Binding="{Binding Value}"  />
-                    </DataGrid.Columns>
-                </DataGrid>
+                            <DataGridTextColumn Width="225" Header="Value" Binding="{Binding Value}"  />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
             </ScrollViewer>
         </GroupBox>
     </Grid>

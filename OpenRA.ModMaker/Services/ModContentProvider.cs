@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using OpenRA.Graphics;
 using OpenRA.ModMaker.Exceptions;
@@ -39,6 +40,19 @@ namespace OpenRA.ModMaker.Services
 			var mods = new InstalledMods(new string[] { modsDirectoryPath }, new string[] { modId });
 			var mod = mods[modId];
 			modData = new ModData(mod, mods, true);
+		}
+
+		public SpriteSequence GetSpriteSequence(string tileSet, string actorName, Func<IEnumerable<string>, string> sequenceSelector)
+		{
+			if (modData == null)
+				throw new ModLoaderException("ModData is not loaded");
+
+			var defaultSequences = modData.DefaultSequences;
+			var sequences = defaultSequences[tileSet];
+			var unitSequences = sequences.Sequences(actorName);
+			var sequenceName = sequenceSelector(unitSequences);
+
+			return GetSpriteSequence(tileSet, actorName, sequenceName);
 		}
 
 		public SpriteSequence GetSpriteSequence(string tileSet, string actorName, string sequenceName)

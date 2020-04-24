@@ -15,7 +15,9 @@ namespace OpenRA.ModMaker.UI
 		{
 			InitializeComponent();
 
-			var colorPalettePath = "C:\\work\\games\\OpenRAModMaker\\OpenRA\\mods\\cnc\\bits\\snow.pal";
+			//var colorPalettePath = "C:\\work\\games\\OpenRAModMaker\\OpenRA\\mods\\cnc\\bits\\snow.pal";
+			var colorPalettePath = "C:\\work\\samples\\shpviewer\\SHPViewer\\bin\\Debug\\assets\\Red Alert 2\\unittem.pal";
+
 			var dialogService = new DialogService(frameworkDialogFactory: new CustomFrameworkDialogFactory());
 
 			//var modsPath = "C:\\work\\games\\OpenRAModMaker\\OpenRA\\mods";
