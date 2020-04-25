@@ -18,6 +18,7 @@ namespace OpenRA.ModMaker.Model
 
 			var pathResolver = new SimplePathResolver(this, mod.ModsDirectoryPath, mod.WorkingDirectoryPath);
 			this.Children.Add(new RuleSetCollection(this.yamlNodes.FirstOrDefault(x => x.Key == NodeNames.RulesNodeName)?.Value, pathResolver));
+			this.Children.Add(new WeaponSetCollection(this.yamlNodes.FirstOrDefault(x => x.Key == NodeNames.WeaponsNodeName)?.Value, pathResolver));
 		}
 
 		public override void SaveState()

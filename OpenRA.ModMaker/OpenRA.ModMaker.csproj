@@ -42,6 +42,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Exceptions\ModLoaderException.cs" />
+    <Compile Include="Model\Weapon.cs" />
+    <Compile Include="Model\WeaponSet.cs" />
+    <Compile Include="Model\WeaponSetCollection.cs" />
     <Compile Include="Model\SpriteImage.cs" />
     <Compile Include="Model\SpriteSequence.cs" />
     <Compile Include="NodeNames.cs" />

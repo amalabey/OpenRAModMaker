@@ -30,6 +30,12 @@ namespace OpenRA.ModMaker.UI.ViewModel
 			{
 				this.Children.Add(new RuleSetCollectionTreeViewNode(this, (RuleSetCollection)rulesNode, navigator, ownerViewModel, dialogService, contentProvider));
 			}
+
+			var weaponsNode = node.Children.FirstOrDefault(x => x.Name == NodeNames.WeaponsNodeName);
+			if (weaponsNode != null)
+			{
+				this.Children.Add(new WeaponSetCollectionTreeViewNode(this, (WeaponSetCollection)weaponsNode, navigator, ownerViewModel, dialogService, contentProvider));
+			}
 		}
 
 		private void OnSave(object parameter)
