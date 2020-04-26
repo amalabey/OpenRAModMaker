@@ -7,6 +7,7 @@ using MvvmDialogs.FrameworkDialogs.OpenFile;
 using OpenRA.ModMaker.Model;
 using OpenRA.ModMaker.UI.ViewModel.Base;
 using OpenRA.ModMaker.Services;
+using OpenRA.ModMaker.UI.Services;
 
 namespace OpenRA.ModMaker.UI.ViewModel
 {
@@ -63,7 +64,9 @@ namespace OpenRA.ModMaker.UI.ViewModel
 			this.colorPalettePath = colorPalettePath;
 			this.mod = new Mod(workingDirectoryPath, modsDirectoryPath, modId);
 			var contentProvider = new ModContentProvider(modsDirectoryPath, workingDirectoryPath, modId, colorPalettePath);
-			this.Manifest = new ManifestTreeViewNode(null, this.mod.Manifest, this.Navigator, this, this.dialogService, contentProvider);
+			var resourceProvider = new WpfPackResourceProvider();
+			var uiContext = new WpfUIContext();
+			this.Manifest = new ManifestTreeViewNode(null, this.mod.Manifest, this.Navigator, this, this.dialogService, contentProvider, resourceProvider, uiContext);
 			this.Navigator.Root = this.Manifest;
 		}
 

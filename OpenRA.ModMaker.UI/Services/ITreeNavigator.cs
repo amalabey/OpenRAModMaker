@@ -1,4 +1,6 @@
-﻿namespace OpenRA.ModMaker.UI.ViewModel
+﻿using OpenRA.ModMaker.UI.ViewModel;
+
+namespace OpenRA.ModMaker.UI.Services
 {
 	public interface ITreeNavigator
 	{

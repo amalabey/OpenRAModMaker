@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using OpenRA.ModMaker.UI.ViewModel;
 using OpenRA.ModMaker.UI.ViewModel.Base;
 
-namespace OpenRA.ModMaker.UI.ViewModel
+namespace OpenRA.ModMaker.UI.Services
 {
 	public class TreeNavigator : BaseViewModel, ITreeNavigator
 	{

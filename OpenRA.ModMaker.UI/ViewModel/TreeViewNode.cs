@@ -9,16 +9,21 @@ using OpenRA.ModMaker.UI.ViewModel.Base;
 using System.Collections.Specialized;
 using OpenRA.ModMaker.Services;
 using System.Drawing;
+using OpenRA.ModMaker.UI.Services;
 
 namespace OpenRA.ModMaker.UI.ViewModel
 {
 	public class TreeViewNode : BaseViewModel
 	{
+		private const string DefaultTileSetName = "SNOW";
+		
 		protected Node node;
 		protected readonly ITreeNavigator navigator;
 		protected readonly INotifyPropertyChanged ownerViewModel;
 		protected readonly IDialogService dialogService;
 		protected readonly IContentProvider contentProvider;
+		protected readonly IResourceProvider resourceProvider;
+		protected readonly IUIContext uiContext;
 
 		public TreeViewNode Parent { get; set; }
 		public string Name { get; set; }
@@ -32,9 +37,7 @@ namespace OpenRA.ModMaker.UI.ViewModel
 			}
 		}
 		public virtual string IconUrl { get; }
-		public virtual ImageViewModel Icon { get; }
-		public int ImageWidth { get; set; }
-		public int ImageHeight { get; set; }
+		public virtual SpriteImageViewModel Icon { get; }
 		public bool IsExpanded { get; set; }
 		public bool IsSelected { get; set; }
 		public ObservableCollection<TreeViewNode> Children { get; set; }
@@ -44,7 +47,8 @@ namespace OpenRA.ModMaker.UI.ViewModel
 		public ICommand SelectCommand { get; set; }
 		public ICommand LinkCommand { get; set; }
 
-		public TreeViewNode(TreeViewNode parent, Node node, ITreeNavigator navigator, INotifyPropertyChanged ownerViewModel, IDialogService dialogService, IContentProvider contentProvider)
+		public TreeViewNode(TreeViewNode parent, Node node, ITreeNavigator navigator, INotifyPropertyChanged ownerViewModel, IDialogService dialogService, 
+			IContentProvider contentProvider, IResourceProvider resourceProvider, IUIContext uiContext)
 		{
 			this.Children = new ObservableCollection<TreeViewNode>();
 			this.SelectCommand = new RelayCommand<object>(OnNodeSelection, p => true);
@@ -58,6 +62,8 @@ namespace OpenRA.ModMaker.UI.ViewModel
 			this.ownerViewModel = ownerViewModel;
 			this.dialogService = dialogService;
 			this.contentProvider = contentProvider;
+			this.resourceProvider = resourceProvider;
+			this.uiContext = uiContext;
 
 			this.Properties = new ObservableCollection<TreeViewNodeProperty>(node.Attributes.Select(kvp => new TreeViewNodeProperty(this.node, kvp.Key, kvp.Value)));
 			this.Properties.CollectionChanged += OnPropertiesCollectionChanged;

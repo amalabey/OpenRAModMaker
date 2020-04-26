@@ -95,6 +95,10 @@
     <Compile Include="Dialogs\TextInput\TextInputDialogWindow.xaml.cs">
       <DependentUpon>TextInputDialogWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Services\WpfPackResourceProvider.cs" />
+    <Compile Include="Services\IResourceProvider.cs" />
+    <Compile Include="Services\IUIContext.cs" />
+    <Compile Include="Services\WpfUIContext.cs" />
     <Compile Include="ValueConverters\NodeToImageConverter.cs" />
     <Compile Include="ValueConverters\NotNullToVisibleConverter.cs" />
     <Compile Include="ValueConverters\NullToVisibleConverter.cs" />
@@ -102,8 +106,8 @@
     <Compile Include="ViewModel\ActorTreeViewNode.cs" />
     <Compile Include="ViewModel\Base\BaseViewModel.cs" />
     <Compile Include="ViewModel\Base\RelayCommand.cs" />
-    <Compile Include="ViewModel\ImageViewModel.cs" />
-    <Compile Include="ViewModel\ITreeNavigator.cs" />
+    <Compile Include="ViewModel\SpriteImageViewModel.cs" />
+    <Compile Include="Services\ITreeNavigator.cs" />
     <Compile Include="ViewModel\ManifestTreeViewNode.cs" />
     <Compile Include="ViewModel\ModViewModel.cs" />
     <Compile Include="ViewModel\NodeAction.cs" />
@@ -114,7 +118,7 @@
     <Compile Include="ViewModel\RuleSetCollectionTreeViewNode.cs" />
     <Compile Include="ViewModel\RuleSetTreeViewNode.cs" />
     <Compile Include="ViewModel\TraitTreeViewNode.cs" />
-    <Compile Include="ViewModel\TreeNavigator.cs" />
+    <Compile Include="Services\TreeNavigator.cs" />
     <Compile Include="ViewModel\TreeViewNode.cs" />
     <Compile Include="ViewModel\TreeViewNodeProperty.cs" />
     <Page Include="Dialogs\TextInput\TextInputDialogWindow.xaml">
@@ -206,6 +210,10 @@
   <ItemGroup>
     <Resource Include="Images\weapon.png" />
     <Resource Include="Images\weaponsetcollection.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\failed.png" />
+    <Resource Include="Images\loading.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.6.1.1\build\Fody.targets" Condition="Exists('..\packages\Fody.6.1.1\build\Fody.targets')" />
