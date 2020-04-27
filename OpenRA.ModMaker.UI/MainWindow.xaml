@@ -137,23 +137,45 @@
             <ScrollViewer  VerticalScrollBarVisibility="Auto">
                 <StackPanel Orientation="Vertical">
                     <Image MaxHeight="300" MaxWidth="300" Margin="3" Visibility="{Binding Path=Navigator.SelectedNode.Icon, Converter={x:Static local:NotNullToVisibilityConverter.Instance}}" Source="{Binding Path=Navigator.SelectedNode.Icon.ImageSource}" />
-                    <DataGrid x:Name="PropertiesDataGrid" 
+                    <DataGrid x:Name="PropertiesDataGrid" HeadersVisibility="Column"
+                          BorderThickness="1,0,0,0"
                           HorizontalGridLinesBrush="LightGray"
                           VerticalGridLinesBrush="LightGray"
                           AutoGenerateColumns="False"
-                          ItemsSource="{Binding Path=Navigator.SelectedNode.Properties}" BorderBrush="{x:Null}">
+                          ItemsSource="{Binding Path=Navigator.SelectedNode.Properties}" BorderBrush="LightGray" Background="{x:Null}">
                         <DataGrid.Resources>
-                            <Style x:Key="NameColumnStyle" TargetType="{x:Type DataGridCell}">
+                            <Style x:Key="ColumnHeaderStyle" TargetType="{x:Type DataGridColumnHeader}">
                                 <Style.Setters>
-                                    <Setter Property="Background" Value="LightCyan"/>
+                                    <Setter Property="Background" Value="LightGray"/>
                                     <Setter Property="FontWeight" Value="DemiBold" />
                                 </Style.Setters>
                             </Style>
+                            <Style x:Key="NameColumnStyle" TargetType="{x:Type DataGridCell}">
+                                <Style.Setters>
+                                    <!--<Setter Property="Background" Value="LightGray"/>-->
+                                    <Setter Property="FontWeight" Value="DemiBold" />
+                                    <Setter Property="BorderThickness" Value="1,0,0,0"></Setter>
+                                </Style.Setters>
+                            </Style>
+                            <DataTemplate x:Key="CustomCellDisplayTemplate" >
+                                <TextBlock Text="{Binding Value}"/>
+                            </DataTemplate>
+                            <DataTemplate x:Key="CustomCellEditingTemplate" >
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBox Text="{Binding Value}" HorizontalAlignment="Stretch"/>
+                                    <TextBlock>...</TextBlock>
+                                </StackPanel>
+                            </DataTemplate>
                         </DataGrid.Resources>
                         <DataGrid.Columns>
-                            <DataGridTextColumn Width="225" Header="Name" Binding="{Binding Name}" 
-                                            CellStyle="{StaticResource NameColumnStyle}" CanUserReorder="False" CanUserResize="False" />
-                            <DataGridTextColumn Width="225" Header="Value" Binding="{Binding Value}"  />
+                            <DataGridTextColumn Width="*" Header="Name" Binding="{Binding Name}" 
+                                CellStyle="{StaticResource NameColumnStyle}"
+                                HeaderStyle="{StaticResource ColumnHeaderStyle}"
+                                CanUserReorder="False" CanUserResize="False" Foreground="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}" />
+                            <!--<DataGridTextColumn Width="225" Header="Value" Binding="{Binding Value}"  />-->
+                            <DataGridTemplateColumn Width="*" Header="Value" CellTemplate="{StaticResource CustomCellDisplayTemplate}" 
+                                HeaderStyle="{StaticResource ColumnHeaderStyle}"
+                                CellEditingTemplate="{StaticResource CustomCellEditingTemplate}" />
                         </DataGrid.Columns>
                     </DataGrid>
                 </StackPanel>
